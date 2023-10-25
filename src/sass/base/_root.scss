@@ -1,0 +1,12 @@
+/* Custom properties */
+@use '../abstracts/colors' as *;
+
+:root{
+
+   @each $color, $shades in $colors{
+    @each $shade, $value in $shades{
+        --crl-#{$color}-#{$shade}: #{$value};
+    }
+   }
+   
+}

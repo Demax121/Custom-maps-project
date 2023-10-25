@@ -1,0 +1,47 @@
+
+https://www.youtube.com/watch?v=CR-a8upNjJ0&list=PL4-IK0AVhVjMYRhK9vRPatSlb-9r0aKgh&index=4 - Kevin Powell, great material how to use this stuff
+
+@forward '../FolderName/FileName'; - is always in _index.scss file in every sub-folder in SASS folder
+
+@use in style.scss/main.scss file only uses folder names example: @use 'base';
+
+@use in subfolders is used in scss files and not in index file. 
+
+@use while used in subfolder files is used as in the example: @use '../FolderName/FileName'; 
+
+While using @use in files in subfolders you have to secify a file from which variable is coming from example: 
+
+We have a $red variable in abstracts/colors.scss file, to use it we forward it using _index.scss file,
+then in the file we want to use it in we say @use '../abstracts/colors';
+But it`s not the end while using the $red variable we have to add colors. before its` name so it looks like this: background: colors.$red;
+
+We can make it simpler using 'as' for example: @use '../abstracts/colors' as c;
+Now we just write: background: c.$red; and it works.
+
+==================================================================================================================================================================
+How is this file structure working
+
+Assets - all images, icons, fonts etc. are placed in there
+Scripts - All of the JS stuff is placed in here
+
+SASS - folder i a complex one, containing 5 subfolders or more if you want to in which are files secific for those things.
+
+Abstracts- Are all the things that are not compiled into CSS, things like color maps, maps etc.
+Base - Here you set your total reset, basic thing that always are part of the site and affect all global things
+Components - Are individual components, that can be used and reused 
+Layouts - Page related stuff or section related stuff when dealing with single page layouts. Basically how your site looks
+Utilities - Classes that are used all the time and need specific styling. All od them are single files
+==================================================================================================================================================================
+
+Javascript task runners - in the future
+
+==================================================================================================================================================================
+
+HOW TO GET STARTED:
+
+Just type in terminal: npm start
+
+To build final project type: npm run build
+
+
+

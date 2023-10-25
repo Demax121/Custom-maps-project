@@ -1,0 +1,1 @@
+addEventListener('DOMContentLoaded', (event) => {console.log('Drzewo zaladowane');});
