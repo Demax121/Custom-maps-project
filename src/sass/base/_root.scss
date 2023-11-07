@@ -1,12 +1,8 @@
-/* Custom properties */
-@use '../abstracts/colors' as *;
 
-:root{
-
-   @each $color, $shades in $colors{
-    @each $shade, $value in $shades{
-        --crl-#{$color}-#{$shade}: #{$value};
+    :root{
+        --nav-crl-primary: rgba(0, 0, 0, .8);
+        --fnt-crl-primary: rgb(255, 255, 255);
+        --bg-crl-primary:  rgb(0, 0, 0);
+        --width-40: 40px;
     }
-   }
-   
-}
+

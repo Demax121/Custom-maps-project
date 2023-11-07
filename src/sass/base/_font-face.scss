@@ -1,1 +1,10 @@
 /* Font import */
+
+@font-face {
+    font-family: 'mopsmedium';
+    src: url('../assets/mops-webfont.woff2') format('woff2'),
+         url('../assets/mops-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}

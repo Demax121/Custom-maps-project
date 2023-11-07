@@ -1,0 +1,90 @@
+body,
+html{
+    background-color: var(--bg-crl-primary);
+    font-family: 'mopsmedium';
+}
+
+
+#map {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    background-color: var(--bg-crl-primary)
+}
+
+.cbtn{ //Coordinates getter button styling
+    
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 8pt;
+    padding: 0 12px;
+    line-height: 20px;
+    height: 30px;
+    max-height: 30px;
+    background: #566AE5;
+    font-weight: 700;
+    border: 0;
+    border-radius: 0;
+    color: #FFFFFF;
+}
+
+.export .close{
+    font-size: 16pt;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+
+.leaflet-bar a:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom: none!important
+}
+
+.leaflet-bar a,
+.leaflet-bar a:hover {
+    background-color: var(--nav-crl-primary);
+    color: var(--fnt-crl-primary);;
+    font-size: 14pt;
+    border-bottom: 1px solid #ccc
+}
+
+.leaflet-control-layers {
+    font-family: 'mopsmedium';
+    background-color: var(--nav-crl-primary);
+    color: var(--fnt-crl-primary);;
+    font-size: 14pt;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    width: 3rem!important;
+    height: 3rem!important;
+    line-height: 3rem!important;
+    font-size: 1.75rem!important
+}
+.leaflet-control {
+    cursor: pointer
+}
+
+@media (max-width:991px) {
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+        width: 0!important;
+        height: 0!important;
+        line-height: 0!important;
+        font-size: 0!important
+    }
+  }
+
+.custom-popup { //popups for created markers
+    max-height: 1.25rem;
+    font-family: 'mopsmedium';
+    font-size: 14pt;
+    text-align: center;
+    font-weight: 400;
+    background-color: rgba (255, 255, 255, 0.1);
+}
+
