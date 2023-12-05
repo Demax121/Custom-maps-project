@@ -1,0 +1,358 @@
+//Start of sidebar styling
+.sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 2000;
+  background-color: var(--nav-crl-primary); //overall background color of sidebar
+}
+
+.sidebar.collapsed {
+  width: var(--width-desktop);
+}
+
+.button-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Adjust the number of columns as needed */
+  gap: 0.75rem;
+  font-size: 1.4rem;
+}
+
+
+.btn-sidebar {
+  color: var(--nav-crl-primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-sidebar>p {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.checkpoint-menu {
+  display: none;
+}
+
+.checkpoint-menu-active {
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: 0.5rem;
+}
+
+.checkpoint-menu-icon {
+  transition: transform 200ms ease-in-out;
+}
+
+.flip-icon {
+  transform: rotate(0deg);
+  animation: flip 200ms ease-in-out forwards;
+}
+
+@keyframes flip {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+
+.sidebar-left {
+  left: 0;
+}
+
+.sidebar-right {
+  right: 0;
+}
+
+.sidebar-tabs {
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5) //background color of the panel when shown
+}
+
+.sidebar-left .sidebar-tabs {
+  left: 0;
+}
+
+.sidebar-right .sidebar-tabs {
+  right: 0;
+}
+
+.sidebar-tabs,
+.sidebar-tabs>ul {
+  position: absolute;
+  width: var(--width-desktop); //size of the navbar icons
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.sidebar-tabs>li,
+.sidebar-tabs>ul>li {
+  width: 100%;
+  margin: 1.5rem auto;
+  color: var(--fnt-crl-primary); //color of the navbar icons
+  font-size: 1.5rem; //size of the navbar icons
+  overflow: hidden;
+  transition: all 80ms;
+}
+
+.sidebar-tabs>li:hover,
+.sidebar-tabs>ul>li:hover {
+  color: var(--fnt-crl-primary); //change icon color on hover
+  opacity: .5;
+  background-color: var(--nav-crl-primary); //change background color on hover
+}
+
+.sidebar-tabs>li.active,
+.sidebar-tabs>ul>li.active {
+  color: var(--fnt-crl-secondary);
+  background-color: rgba(199, 198, 198, 0.8);
+}
+
+.sidebar-tabs>li.disabled,
+.sidebar-tabs>ul>li.disabled {
+  color: rgba(51, 51, 51, .4)
+}
+
+.sidebar-tabs>li.disabled:hover,
+.sidebar-tabs>ul>li.disabled:hover {
+  background: transparent;
+}
+
+.sidebar-tabs>li.disabled>a,
+.sidebar-tabs>ul>li.disabled>a {
+  cursor: default;
+}
+
+.sidebar-tabs>li>a,
+.sidebar-tabs>ul>li>a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: var(--width-desktop); //making icons look more regular
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+
+.sidebar-tabs>ul+ul {
+  bottom: 0;
+}
+
+.sidebar-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: var(--fnt-crl-primary); //text color of the shown panel
+}
+
+.sidebar-content .link {
+  color: var(--fnt-crl-primary); //links on the show panel
+  text-decoration: underline;
+}
+
+
+.sidebar-left .sidebar-content {
+  left: var(--width-desktop);
+  right: 0;
+  padding-left: 10px;
+}
+
+.sidebar-right .sidebar-content {
+  left: 0;
+  right: var(--width-desktop);
+}
+
+.sidebar.collapsed>.sidebar-content {
+  overflow-y: hidden;
+}
+
+.sidebar-pane {
+  display: none;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  font-size: 1.3rem; //font-size of the content inside sidebar pane
+}
+
+.sidebar-pane.active {
+  display: block;
+}
+
+.sidebar-header {
+  margin: 0.3rem auto 1.15rem auto;
+  max-height: 3rem;
+  padding: 0 1.25rem;
+  color: var(--fnt-crl-primary);
+  border-bottom: 2px solid var(--fnt-crl-primary);
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2.3rem; //header font size
+}
+
+.fa-caret-left {
+  font-size: 2rem;
+}
+
+.sidebar-right .sidebar-header {
+  padding-left: var(--width-desktop);
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 0;
+  width: var(--width-desktop);
+  height: var(--width-desktop);
+  text-align: center;
+  cursor: pointer;
+}
+
+.sidebar-left .sidebar-close {
+  right: 0;
+}
+
+.sidebar-right .sidebar-close {
+  left: 0;
+}
+
+.sidebar-left~.sidebar-map {
+  margin-left: var(--width-desktop);
+}
+
+.sidebar-right~.sidebar-map {
+  margin-right: var(--width-desktop);
+}
+
+.sidebar-content li {
+  margin-bottom: 10px;
+}
+
+
+
+// Sidebar media queries
+
+@media (max-width: 992px) {
+  .sidebar-header {
+    height: 2.5rem;
+    max-height: 2.5rem;
+    font-size: 1.5rem;
+  }
+
+  .button-controls {
+    font-size: 1rem;
+
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .sidebar-pane {
+    min-width: 300px;
+  }
+
+  .sidebar-left~.sidebar-map .leaflet-left {
+    left: 315px;
+  }
+
+  .sidebar-right~.sidebar-map .leaflet-right {
+    right: 315px;
+  }
+
+  .sidebar {
+    width: 370px;
+  }
+}
+
+@media (min-width: 768px) {
+  .sidebar-right~.sidebar-map {
+    margin-right: 0;
+  }
+
+  .sidebar-left~.sidebar-map {
+    margin-left: 0;
+  }
+
+  .sidebar-left~.sidebar-map .leaflet-left {
+    transition: left 0.5s;
+  }
+
+  .sidebar-left.collapsed~.sidebar-map .leaflet-left {
+    left: 50px;
+  }
+
+  .sidebar-right~.sidebar-map .leaflet-right {
+    transition: right 0.5s;
+  }
+
+  .sidebar-right.collapsed~.sidebar-map .leaflet-right {
+    right: 50px;
+  }
+
+  .sidebar {
+    top: 0;
+    bottom: 0;
+    transition: width 0.5s;
+  }
+
+  .sidebar-left {
+    left: 0;
+  }
+
+  .sidebar-right {
+    right: 0;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .sidebar-pane {
+    min-width: 350px;
+  }
+
+  .sidebar-left~.sidebar-map .leaflet-left {
+    left: 400px;
+  }
+
+  .sidebar-right~.sidebar-map .leaflet-right {
+    right: 400px;
+  }
+
+  .sidebar {
+    width: 400px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sidebar-pane {
+    min-width: 420px;
+  }
+
+  .sidebar-left~.sidebar-map .leaflet-left {
+    left: 470px;
+  }
+
+  .sidebar-right~.sidebar-map .leaflet-right {
+    right: 470px;
+  }
+
+  .sidebar {
+    width: 560px;
+  }
+}
+
+
+
+//end of sidebar media queries
+
+
+
+//End of sidebar styling

@@ -1,0 +1,60 @@
+
+
+.marker-list-container{
+    text-decoration: none;
+    color: var(--fnt-crl-primary);
+
+}
+
+.marker-list-toggle{
+    background: none;
+    border: none;
+    display: block;
+    text-decoration: underline;
+    color: var(--fnt-crl-primary);
+    font-size: 1.75rem;
+    cursor: pointer;
+    
+}
+
+.marker-list-toggle:hover{
+    text-decoration: none;
+}
+
+.marker-list-item{
+
+}
+
+.marker-link{
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.45rem;
+    margin-right:5rem;
+    outline: 1px solid red;
+}
+
+
+.marker-link:hover{
+    color: rgba(255, 255, 255, .45);
+}
+
+
+.marker-info{
+    font-size: 1.2rem;
+    color: inherit;
+    font-family: 'Franklin Gothic Regular';
+    outline: 1px solid red;
+}
+
+
+
+.marker-list--closed{
+ display: none;
+}
+
+.marker-list--open{
+    padding-top: 1rem;
+    display: block;
+}
+
+

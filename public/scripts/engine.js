@@ -1,7 +1,7 @@
 var mapPath = "../maps/test/{z}/{y}/{x}.webp";
 
 var fullmap = L.tileLayer(mapPath, {
-  minZoom: 1,
+  minZoom: 0,
   maxZoom: 5,
   continuousWorld: false,
   noWrap: true,
@@ -46,9 +46,35 @@ var greenIcon = new L.Icon({
 });
 //end of custom icons
 
+//Functionality for overall stuff
+
+document.querySelector('.checkpoint-menu-toggle').addEventListener("click", ()=>{
+  var checkpointMenu = document.querySelector('.checkpoint-menu');
+  var icon = document.querySelector('.checkpoint-menu-icon');
+  checkpointMenu.classList.toggle('checkpoint-menu-active');
+  icon.classList.toggle('flip-icon');
+});
+
+
+var closeCheckpoint = document.querySelector(".close__checkpoint").addEventListener("click", () => {
+  closeCords(Cords);
+});
+
+
+var openCheckpoint = document.querySelector(".open__checkpoint").addEventListener("click", () => {
+  Cords.addTo(Worldmap);});
+
+
+
+//End of the Functionality section
+
+
+
+//Leaflet stuff
 let worldMarkers=[]; //array for the default markers earlier added using JSON or fetched from database
 let markersArray = []; //array to store markers
 let layersArray = []; //array used to store layergroup objects
+let layerLinksArray = []; //array used to store layer links for sidebar
 //new marker object used to create new markers
 let newMarker = {
   markerID:'',
@@ -94,13 +120,53 @@ function addNewOverlay(layerName) {
   }
 }
 
+const markerListTemplate = document.querySelector('#sidebar-layer-template');
+const listItemTemplate = document.querySelector('#sidebar-marker-template');
+
+function addToList(listContainer, layerName, markerName, markerCoordinates, markerID){
+
+  if (layerLinksArray.includes(layerName) === false){
+    const newList = markerListTemplate.content.cloneNode(true);
+    newList.querySelector('.marker-list-toggle').dataset.targetLayer = layerName;
+    newList.querySelector('.marker-list-toggle').textContent = layerName;
+    newList.querySelector('.marker-list').dataset.layerGroup = layerName;
+    listContainer.appendChild(newList);
+    layerLinksArray.push(layerName);
+  }
+
+  const newlistItem = listItemTemplate.content.cloneNode(true);
+  newlistItem.querySelector('.marker-list-item').dataset.layer=layerName;
+  newlistItem.querySelector('.marker-link').dataset.markerid = markerID;
+  newlistItem.querySelector('.marker-link').textContent = markerName;
+  newlistItem.querySelector('.marker-info').textContent = "Coordinates: " + markerCoordinates;
+
+  let targetLayer = document.querySelector('.marker-list');
+  let markerLayer = newlistItem.querySelector('.marker-list-item');
+  if (markerLayer.dataset.layer == targetLayer.dataset.layerGroup) {
+
+    targetLayer.appendChild(newlistItem);
+  }
+}
 
 
 
+
+
+
+
+
+
+
+
+
+//own markers section
 
 function addMarker() {
   let markerName = document.querySelector(".markerName").value.trim();
+  markerName = markerName.charAt(0).toUpperCase() + markerName.slice(1);
+  
   let layerName = document.querySelector(".layerName").value.trim();
+  layerName = layerName.charAt(0).toUpperCase() + layerName.slice(1);
   addNewOverlay(layerName);
   // Check if the markerName is not blank or just whitespace
   if (markerName === "") {
@@ -139,43 +205,44 @@ function addMarker() {
   const customPopupContent = `<div class="custom-popup">${markerName}</div>`;//create custom popup with marker name
   markersArray[markerID].bindPopup(customPopupContent).openPopup(); //add a popup to the marker and open it
   targetLayer.group.addLayer(markersArray[markerID]); //add the marker to the layergroup of the target layer
-}
 
-// Get the marker that will be used to get coordinates
+
+  
+var listContainer = document.querySelector(".custom-markers-container");
+
+addToList(listContainer, layerName, markerName, markerCoordinates, markerID);
+}
+//AddMarker function ends here
+
+
+// Get the checkpoint marker that will be used to get coordinates
 var Cords = L.marker([0, 0], {
   icon: redIcon,
   draggable: true,
   zIndexOffset: 9998
 });
+
+const checkpointPopupTemplate = document.querySelector("#checkpoint-popup-template");
+
 Cords.bindPopup("");
 Cords.openPopup("");
 Cords.on("dragend", () => {
-  let coordinates = getCords(Cords);
+  const coordinates = getCords(Cords);
+  const checkpointPopup = checkpointPopupTemplate.content.cloneNode(true);
+  
+  const popupContent = 
+
+
+
   Cords.getPopup()
-    .setContent(
-      coordinates +
-        "<br><br>" +
-        ' <label for="markerName">Location name:</label>' +
-        "<br>" +
-        '<input type="text" class="markerName" name="markerName">' +
-        "<br>" +
-        ' <label for="layerName">Layer:</label>' +
-        "<br>" +
-        '<input type="text" class="layerName" name="layerName">' +
-        "<br><br>" +
-        ' <button type="button" onclick="addMarker()" class="cbtn">add to list</button>' +
-        ' <button type="button" onclick="closeCords(Cords)" class="cbtn">Close coordinates</button>'
-    )
+    .setContent(popupContent)
     .openOn(Worldmap);
 });
 
-document.querySelector(".close").addEventListener("click", () => {
-  closeCords(Cords); //close button for the marker from the sidebar
-});
-var getLoc = document.querySelector(".getLoc").addEventListener("click", () => {
-  Cords.addTo(Worldmap);
-});
-//Getting coordinates ends here
+
+
+
+
 //Function for exporting markers to JSON file
 document.querySelector(".export").addEventListener("click", function () {
   if (markersArray.length > 0) {
@@ -206,8 +273,11 @@ document.querySelector(".export").addEventListener("click", function () {
   }
 });
 //end of export function
+//end of the own markers section
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Loaded Successfully");
+  openList();
 });

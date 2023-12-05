@@ -16,8 +16,7 @@
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars" aria-hidden="true"></i></a></li>
                 <li><a href="#WorldMarkers" role="tab" class="wordlMarkers"><i class="fa-solid fa-earth-americas"></i></a></li>
-                <li><a href="#OwnMarkers" role="tab" class="getLoc ownMarkers"><i class="fa-solid fa-location-dot"></i></a></li>
-                <li><a href="#LORE" role="tab" class="LORE"><i class="fa-solid fa-book-open"></i></a></li>
+                <li><a href="#OwnMarkers" role="tab" class="ownMarkers"><i class="fa-solid fa-location-dot"></i></a></li>
             </ul>
 
 
@@ -43,32 +42,36 @@
                     World Locations
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
-                <div class="marker-list base-markers-list">
+                <div class="marker-list-container base-markers-container">
                     
                 </div>
             </div>
             <div class="sidebar-pane" id="OwnMarkers">
                 <h1 class="sidebar-header">Your locations<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+
                 <div class="button-controls">
-                <button class="export">Export Markers</button>
-                <button class="close">Close getter</button>
+                <button class="export btn-sidebar">Export Markers</button>
+                <button class="checkpoint-menu-toggle btn-sidebar"><p>Checkpoint Menu</p><i class="fa-solid fa-arrow-down checkpoint-menu-icon flip-icon"></i></button>
+                <div class="monke-solution"></div>
+                <div class="checkpoint-menu">
+                <button class="open__checkpoint btn-sidebar">Add checkpoint</button>
+                <button class="close__checkpoint btn-sidebar">Close checkpoint</button>
             </div>
-                <div class="marker-list custom-markers-list">
+            </div>
+            
+                <div class="marker-list-container custom-markers-container">
+
+
                 </div>
             </div>
-            <div class="sidebar-pane" id="LORE">
-                <h1 class="sidebar-header">LORE<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                <p>This section contains information about the map, the history etc. <br>
-                The moment you click on the marker this tab will get updated with the informations about specific location.</p>
-            </div>
+           
          
 
             <div class="sidebar-pane" id="info">
                 <h1 class="sidebar-header">INFORMATIONS<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
                 <p>Thanks for coming here. This project has been created for people who would like to host their map website<br><br>
                     I`m a TTRPG player and have always wanted to make maps for my players and myself more accessible when playing online, that`s why I`ve been going through a lot of things that could make it possible, and as there are a lot of options none of them have satisfied me enough.<br><br>
-                    That`s why I have created this whole Custom RPG Maps project using <a href="https://leafletjs.com/" class="link">leafletJS</a> and <a href="https://github.com/Turbo87/sidebar-v2"class="link">leaflet Sidebarv2</a> based on the great map of <a href="https://eberronmap.johnarcadian.com/" target="_blank"  class="link">Eberron by John Cardian</a>.<br>
-                    As you can see design is also very similar not to say it`s a ripoff because I like it.
+                    That`s why I have created this whole Custom RPG Maps project using <a href="https://leafletjs.com/" class="link">leafletJS</a> and <a href="https://github.com/Turbo87/sidebar-v2"class="link">leaflet Sidebarv2</a>
                 </p><br><br>
                 <p>I hope it will come in handy for you dear user. You can modify it however you want or use it as it is I hope you will like what I have done here.</p> <br><br>
                 <p>Font used: <a href="https://www.dafont.com/mops.font"  class="link">Mops by Uwe Borchert</a></p>
@@ -77,6 +80,37 @@
     </div>
     <div id="map" class="sidebar-map"></div> 
 
+
+    <!-- Templates section -->
+
+    <!-- markers list templates-->
+    <template id="sidebar-layer-template">
+        <button data-target-layer="" class="marker-list-toggle">Layer Name</button>
+        <ul data-layer-group="" role="list" class="marker-list marker-list--closed">
+        </ul>
+    </template>
+
+    <template id="sidebar-marker-template">
+        <li class="marker-list-item" data-layer=""><a href="#" class="marker-link" data-marker-id=""></a> <span class="marker-info"></span></li>
+    </template>
+    <!-- markers list templates-->
+
+    <template id="checkpoint-popup-template">
+        <span class="coordinates"></span>
+        <div class="text-inputs">
+            <label for="markerName" class="input-label">Location name:</label>
+            <input type="text" class="markerName" name="markerName">
+            <label for="layerName" class="input-label">Layer:</label>
+            <input type="text" class="layerName" name="layerName">
+        </div>
+        <div class="controls">
+            <button type="button" class="cbtn addMarker">Add to list</button>
+            <button type="button" class="cbtn closeCords">Close</button>
+          </div>
+    </template>
+
+
+        <!-- Templates section -->
 
 <script src="leafletJS/leaflet.js"> </script>
 <script src="leafletJS/leaflet-sidebar.js"></script>
