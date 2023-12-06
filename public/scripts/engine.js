@@ -128,55 +128,42 @@ function addToList(
   markerCoordinates,
   markerID
 ) {
-  let targetLayer = listContainer.querySelector(`.marker-list[data-layer-group="${layerName}"]`);
+  let targetLayer = listContainer.querySelector(
+    `.marker-list[data-layer-group="${layerName}"]`
+  );
 
   if (!targetLayer) {
     const newList = markerListTemplate.content.cloneNode(true);
-    newList.querySelector(".marker-list-toggle").dataset.targetLayer = layerName;
+    newList.querySelector(".marker-list-toggle").dataset.targetLayer =
+      layerName;
     newList.querySelector(".marker-list-toggle").textContent = layerName;
     newList.querySelector(".marker-list").dataset.layerGroup = layerName;
     listContainer.appendChild(newList);
-    targetLayer = listContainer.querySelector(`.marker-list[data-layer-group="${layerName}"]`);
+    targetLayer = listContainer.querySelector(
+      `.marker-list[data-layer-group="${layerName}"]`
+    );
   }
 
   const newlistItem = listItemTemplate.content.cloneNode(true);
   newlistItem.querySelector(".marker-list-item").dataset.layer = layerName;
   newlistItem.querySelector(".marker-link").dataset.markerid = markerID;
   newlistItem.querySelector(".marker-link").textContent = markerName;
-  newlistItem.querySelector(".marker-info").textContent = "Coordinates: " + markerCoordinates;
+  newlistItem.querySelector(".marker-info").textContent =
+    "Coordinates: " + markerCoordinates;
 
   targetLayer.appendChild(newlistItem);
 }
 
-const customObserver = new MutationObserver(mutations =>{
-  mutations.forEach(record => {
-    if (record.type === 'childList') {
-    console.log(record);
-    let markerListToggle = document.querySelectorAll('.marker-list-toggle');
-    markerListToggle.forEach(toggle => {
-      if (toggle.dataset.listener != 'added'){
-      toggle.addEventListener("click", () => {
-        let container = toggle.closest(".list-container");
-        let target = container.querySelector(".marker-list");
-        console.log(container);
-        console.log(target);
-        target.classList.toggle("marker-list--open");
-        toggle.dataset.listener = 'added';
-      });
-    }
-    });
+const customMarkersContainer = document.querySelector(".custom-markers-container");
+function handleToggleClick(event) {
+  let targetToggle = event.target.closest(".marker-list-toggle");
+  if (targetToggle) {
+    let container = targetToggle.closest(".list-container");
+    let target = container.querySelector(".marker-list");
+    target.classList.toggle("marker-list--open");
+  }
 }
-});
-});
-
-
-
-var customMarkersContainer = document.querySelector('.custom-markers-container');
-customObserver.observe(customMarkersContainer, {childList: true});
-
-
-
-
+customMarkersContainer.addEventListener("click", handleToggleClick);
 
 
 //own markers section
