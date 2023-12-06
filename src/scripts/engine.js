@@ -154,16 +154,20 @@ function addToList(
   targetLayer.appendChild(newlistItem);
 }
 
-const customMarkersContainer = document.querySelector(".custom-markers-container");
+const customMarkersContainers = document.querySelectorAll('.marker-list-container');
+
 function handleToggleClick(event) {
-  let targetToggle = event.target.closest(".marker-list-toggle");
+  let targetToggle = event.target.closest('.marker-list-toggle');
   if (targetToggle) {
-    let container = targetToggle.closest(".list-container");
-    let target = container.querySelector(".marker-list");
-    target.classList.toggle("marker-list--open");
+    let container = targetToggle.closest('.list-container');
+    let target = container.querySelector('.marker-list');
+    target.classList.toggle('marker-list--open');
   }
 }
-customMarkersContainer.addEventListener("click", handleToggleClick);
+
+customMarkersContainers.forEach(container => {
+  container.addEventListener('click', handleToggleClick);
+});
 
 
 //own markers section
