@@ -25,7 +25,6 @@ var layerControl = L.control
   .layers(null, null, { collapsed: true })
   .addTo(Worldmap);
 
-
 // Icons
 var redIcon = new L.Icon({
   iconUrl: "../assets/markers/marker-icon-2x-red.png",
@@ -48,36 +47,36 @@ var greenIcon = new L.Icon({
 
 //Functionality for overall stuff
 
-document.querySelector('.checkpoint-menu-toggle').addEventListener("click", ()=>{
-  var checkpointMenu = document.querySelector('.checkpoint-menu');
-  var icon = document.querySelector('.checkpoint-menu-icon');
-  checkpointMenu.classList.toggle('checkpoint-menu-active');
-  icon.classList.toggle('flip-icon');
-});
+document
+  .querySelector(".checkpoint-menu-toggle")
+  .addEventListener("click", () => {
+    var checkpointMenu = document.querySelector(".checkpoint-menu");
+    var icon = document.querySelector(".checkpoint-menu-icon");
+    checkpointMenu.classList.toggle("checkpoint-menu-active");
+    icon.classList.toggle("flip-icon");
+  });
 
-
-var closeCheckpoint = document.querySelector(".close__checkpoint").addEventListener("click", () => {
-  closeCords(Cords);
-});
-
-
-var openCheckpoint = document.querySelector(".open__checkpoint").addEventListener("click", () => {
-  Cords.addTo(Worldmap);});
-
-
+var closeCheckpoint = document
+  .querySelector(".close__checkpoint")
+  .addEventListener("click", () => {
+    closeCords(Cords);
+  });
+var openCheckpoint = document
+  .querySelector(".open__checkpoint")
+  .addEventListener("click", () => {
+    Cords.addTo(Worldmap);
+  });
 
 //End of the Functionality section
 
-
-
 //Leaflet stuff
-let worldMarkers=[]; //array for the default markers earlier added using JSON or fetched from database
+let worldMarkers = []; //array for the default markers earlier added using JSON or fetched from database
 let markersArray = []; //array to store markers
 let layersArray = []; //array used to store layergroup objects
 let layerLinksArray = []; //array used to store layer links for sidebar
 //new marker object used to create new markers
 let newMarker = {
-  markerID:'',
+  markerID: "",
   markerName: "",
   coordinates: [],
   overlayName: "",
@@ -104,7 +103,7 @@ function closeCords(e) {
 }
 //simpul ID for markers
 let markerID = 0;
-function newID(){
+function newID() {
   markerID++;
 }
 //function to create new overlay
@@ -119,40 +118,61 @@ function addNewOverlay(layerName) {
     layersArray.push(newLayerGroup); //add layergroup object/opverlay to array
   }
 }
+const markerListTemplate = document.querySelector("#sidebar-layer-template");
+const listItemTemplate = document.querySelector("#sidebar-marker-template");
 
-const markerListTemplate = document.querySelector('#sidebar-layer-template');
-const listItemTemplate = document.querySelector('#sidebar-marker-template');
+function addToList(
+  listContainer,
+  layerName,
+  markerName,
+  markerCoordinates,
+  markerID
+) {
+  let targetLayer = listContainer.querySelector(`.marker-list[data-layer-group="${layerName}"]`);
 
-function addToList(listContainer, layerName, markerName, markerCoordinates, markerID){
-
-  if (layerLinksArray.includes(layerName) === false){
+  if (!targetLayer) {
     const newList = markerListTemplate.content.cloneNode(true);
-    newList.querySelector('.marker-list-toggle').dataset.targetLayer = layerName;
-    newList.querySelector('.marker-list-toggle').textContent = layerName;
-    newList.querySelector('.marker-list').dataset.layerGroup = layerName;
+    newList.querySelector(".marker-list-toggle").dataset.targetLayer = layerName;
+    newList.querySelector(".marker-list-toggle").textContent = layerName;
+    newList.querySelector(".marker-list").dataset.layerGroup = layerName;
     listContainer.appendChild(newList);
-    layerLinksArray.push(layerName);
+    targetLayer = listContainer.querySelector(`.marker-list[data-layer-group="${layerName}"]`);
   }
 
   const newlistItem = listItemTemplate.content.cloneNode(true);
-  newlistItem.querySelector('.marker-list-item').dataset.layer=layerName;
-  newlistItem.querySelector('.marker-link').dataset.markerid = markerID;
-  newlistItem.querySelector('.marker-link').textContent = markerName;
-  newlistItem.querySelector('.marker-info').textContent = "Coordinates: " + markerCoordinates;
+  newlistItem.querySelector(".marker-list-item").dataset.layer = layerName;
+  newlistItem.querySelector(".marker-link").dataset.markerid = markerID;
+  newlistItem.querySelector(".marker-link").textContent = markerName;
+  newlistItem.querySelector(".marker-info").textContent = "Coordinates: " + markerCoordinates;
 
-  let targetLayer = document.querySelector('.marker-list');
-  let markerLayer = newlistItem.querySelector('.marker-list-item');
-  if (markerLayer.dataset.layer == targetLayer.dataset.layerGroup) {
-
-    targetLayer.appendChild(newlistItem);
-  }
+  targetLayer.appendChild(newlistItem);
 }
 
+const customObserver = new MutationObserver(mutations =>{
+  mutations.forEach(record => {
+    if (record.type === 'childList') {
+    console.log(record);
+    let markerListToggle = document.querySelectorAll('.marker-list-toggle');
+    markerListToggle.forEach(toggle => {
+      if (toggle.dataset.listener != 'added'){
+      toggle.addEventListener("click", () => {
+        let container = toggle.closest(".list-container");
+        let target = container.querySelector(".marker-list");
+        console.log(container);
+        console.log(target);
+        target.classList.toggle("marker-list--open");
+        toggle.dataset.listener = 'added';
+      });
+    }
+    });
+}
+});
+});
 
 
 
-
-
+var customMarkersContainer = document.querySelector('.custom-markers-container');
+customObserver.observe(customMarkersContainer, {childList: true});
 
 
 
@@ -164,7 +184,7 @@ function addToList(listContainer, layerName, markerName, markerCoordinates, mark
 function addMarker() {
   let markerName = document.querySelector(".markerName").value.trim();
   markerName = markerName.charAt(0).toUpperCase() + markerName.slice(1);
-  
+
   let layerName = document.querySelector(".layerName").value.trim();
   layerName = layerName.charAt(0).toUpperCase() + layerName.slice(1);
   addNewOverlay(layerName);
@@ -202,27 +222,26 @@ function addMarker() {
   markersArray[markerID] = L.marker(markerCoordinates, {
     icon: greenIcon,
   });
-  const customPopupContent = `<div class="custom-popup">${markerName}</div>`;//create custom popup with marker name
+  const customPopupContent = `<div class="custom-popup">${markerName}</div>`; //create custom popup with marker name
   markersArray[markerID].bindPopup(customPopupContent).openPopup(); //add a popup to the marker and open it
   targetLayer.group.addLayer(markersArray[markerID]); //add the marker to the layergroup of the target layer
 
+  var listContainer = document.querySelector(".custom-markers-container");
 
-  
-var listContainer = document.querySelector(".custom-markers-container");
-
-addToList(listContainer, layerName, markerName, markerCoordinates, markerID);
+  addToList(listContainer, layerName, markerName, markerCoordinates, markerID);
 }
 //AddMarker function ends here
-
 
 // Get the checkpoint marker that will be used to get coordinates
 var Cords = L.marker([0, 0], {
   icon: redIcon,
   draggable: true,
-  zIndexOffset: 9998
+  zIndexOffset: 9998,
 });
 
-const checkpointPopupTemplate = document.querySelector("#checkpoint-popup-template");
+const checkpointPopupTemplate = document.querySelector(
+  "#checkpoint-popup-template"
+);
 
 Cords.bindPopup("");
 Cords.openPopup("");
@@ -247,19 +266,13 @@ Cords.on("dragend", () => {
     </div>
   `;
 
-  Cords.getPopup()
-    .setContent(popupContent)
-    .openOn(Worldmap);
+  Cords.getPopup().setContent(popupContent).openOn(Worldmap);
 });
-
-
-
-
 
 //Function for exporting markers to JSON file
 document.querySelector(".export").addEventListener("click", function () {
   if (markersArray.length > 0) {
-    const markerData = markersArray.map(marker => {
+    const markerData = markersArray.map((marker) => {
       const { markerName, coordinates, overlayName } = marker;
       return {
         name: markerName,
@@ -288,9 +301,6 @@ document.querySelector(".export").addEventListener("click", function () {
 //end of export function
 //end of the own markers section
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Loaded Successfully");
-  openList();
 });

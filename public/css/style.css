@@ -523,7 +523,7 @@ html {
   outline: 1px solid red;
 }
 
-.marker-list--closed {
+.marker-list {
   display: none;
 }
 

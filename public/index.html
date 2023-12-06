@@ -85,9 +85,11 @@
 
     <!-- markers list templates-->
     <template id="sidebar-layer-template">
-        <button data-target-layer="" class="marker-list-toggle">Layer Name</button>
-        <ul data-layer-group="" role="list" class="marker-list marker-list--closed">
+        <div class="list-container">
+        <button data-target-layer="" data-listener="" class="marker-list-toggle" >Layer Name</button>
+        <ul data-layer-group="" role="list" class="marker-list">
         </ul>
+    </div>
     </template>
 
     <template id="sidebar-marker-template">
