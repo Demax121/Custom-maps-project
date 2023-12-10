@@ -1,10 +1,65 @@
 [
   {
-    "name": "aa",
+    "markerID": 1,
+    "markerName": "A",
     "coordinates": [
-      "46.56",
-      "4.92"
+      "66.79",
+      "48.87"
     ],
-    "overlayName": "bb"
+    "overlayName": "A"
+  },
+  {
+    "markerID": 2,
+    "markerName": "B",
+    "coordinates": [
+      "-44.59",
+      "50.63"
+    ],
+    "overlayName": "B"
+  },
+  {
+    "markerID": 3,
+    "markerName": "C",
+    "coordinates": [
+      "41.77",
+      "153.31"
+    ],
+    "overlayName": "C"
+  },
+  {
+    "markerID": 4,
+    "markerName": "D",
+    "coordinates": [
+      "62.59",
+      "-28.13"
+    ],
+    "overlayName": "D"
+  },
+  {
+    "markerID": 5,
+    "markerName": "E",
+    "coordinates": [
+      "-43.83",
+      "-25.67"
+    ],
+    "overlayName": "E"
+  },
+  {
+    "markerID": 6,
+    "markerName": "Cc",
+    "coordinates": [
+      "21.29",
+      "28.83"
+    ],
+    "overlayName": "C"
+  },
+  {
+    "markerID": 7,
+    "markerName": "Cccc",
+    "coordinates": [
+      "6.66",
+      "90.01"
+    ],
+    "overlayName": "E"
   }
 ]

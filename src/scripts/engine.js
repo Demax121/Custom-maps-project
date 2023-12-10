@@ -72,8 +72,7 @@ var openCheckpoint = document
 //Leaflet stuff
 let worldMarkers = []; //array for the default markers earlier added using JSON or fetched from database
 let markersArray = []; //array to store markers
-let layersArray = []; //array used to store layergroup objects
-let layerLinksArray = []; //array used to store layer links for sidebar
+let overlaysArray = []; //array used to store layergroup objects
 //new marker object used to create new markers
 let newMarker = {
   markerID: "",
@@ -107,15 +106,15 @@ function newID() {
   markerID++;
 }
 //function to create new overlay
-function addNewOverlay(layerName) {
-  if (!layersArray.some((layer) => layer.name === layerName)) {
-    //create new layer group object
+function addNewOverlay(overlayName) {
+  if (!overlaysArray.some((overlay) => overlay.name === overlayName)) {
+    //create new layer group object if it doesn't exist
     const newLayerGroup = {
-      name: layerName,
+      name: overlayName,
       group: L.layerGroup([]).addTo(Worldmap),
     };
-    layerControl.addOverlay(newLayerGroup.group, newLayerGroup.name); //add layergroup object/opverlay to layer control
-    layersArray.push(newLayerGroup); //add layergroup object/opverlay to array
+    layerControl.addOverlay(newLayerGroup.group, newLayerGroup.name); //add layergroup object/overlay to layer control
+    overlaysArray.push(newLayerGroup); //add layergroup object/overlay to an array
   }
 }
 const markerListTemplate = document.querySelector("#sidebar-layer-template");
@@ -123,29 +122,29 @@ const listItemTemplate = document.querySelector("#sidebar-marker-template");
 
 function addToList(
   listContainer,
-  layerName,
+  overlayName,
   markerName,
   markerCoordinates,
   markerID
 ) {
   let targetLayer = listContainer.querySelector(
-    `.marker-list[data-layer-group="${layerName}"]`
+    `.marker-list[data-layer-group="${overlayName}"]`
   );
 
   if (!targetLayer) {
     const newList = markerListTemplate.content.cloneNode(true);
     newList.querySelector(".marker-list-toggle").dataset.targetLayer =
-      layerName;
-    newList.querySelector(".marker-list-toggle").textContent = layerName;
-    newList.querySelector(".marker-list").dataset.layerGroup = layerName;
+      overlayName;
+    newList.querySelector(".marker-list-toggle").textContent = overlayName;
+    newList.querySelector(".marker-list").dataset.layerGroup = overlayName;
     listContainer.appendChild(newList);
     targetLayer = listContainer.querySelector(
-      `.marker-list[data-layer-group="${layerName}"]`
+      `.marker-list[data-layer-group="${overlayName}"]`
     );
   }
 
   const newlistItem = listItemTemplate.content.cloneNode(true);
-  newlistItem.querySelector(".marker-list-item").dataset.layer = layerName;
+  newlistItem.querySelector(".marker-list-item").dataset.layer = overlayName;
   newlistItem.querySelector(".marker-link").dataset.markerid = markerID;
   newlistItem.querySelector(".marker-link").textContent = markerName;
   newlistItem.querySelector(".marker-info").textContent =
@@ -154,21 +153,22 @@ function addToList(
   targetLayer.appendChild(newlistItem);
 }
 
-const customMarkersContainers = document.querySelectorAll('.marker-list-container');
+const customMarkersContainers = document.querySelectorAll(
+  ".marker-list-container"
+);
 
 function handleToggleClick(event) {
-  let targetToggle = event.target.closest('.marker-list-toggle');
+  let targetToggle = event.target.closest(".marker-list-toggle");
   if (targetToggle) {
-    let container = targetToggle.closest('.list-container');
-    let target = container.querySelector('.marker-list');
-    target.classList.toggle('marker-list--open');
+    let container = targetToggle.closest(".list-container");
+    let target = container.querySelector(".marker-list");
+    target.classList.toggle("marker-list--open");
   }
 }
 
-customMarkersContainers.forEach(container => {
-  container.addEventListener('click', handleToggleClick);
+customMarkersContainers.forEach((container) => {
+  container.addEventListener("click", handleToggleClick);
 });
-
 
 //own markers section
 
@@ -176,15 +176,15 @@ function addMarker() {
   let markerName = document.querySelector(".markerName").value.trim();
   markerName = markerName.charAt(0).toUpperCase() + markerName.slice(1);
 
-  let layerName = document.querySelector(".layerName").value.trim();
-  layerName = layerName.charAt(0).toUpperCase() + layerName.slice(1);
-  addNewOverlay(layerName);
+  let overlayName = document.querySelector(".overlayName").value.trim();
+  overlayName = overlayName.charAt(0).toUpperCase() + overlayName.slice(1);
+  addNewOverlay(overlayName);
   // Check if the markerName is not blank or just whitespace
   if (markerName === "") {
     alert("Provide a location name");
     return; // Exit the function without adding a marker
   }
-  if (layerName === "") {
+  if (overlayName === "") {
     alert("Provide a layer name");
     return;
   }
@@ -203,23 +203,26 @@ function addMarker() {
     markerID: markerID,
     markerName: markerName,
     coordinates: markerCoordinates,
-    overlayName: layerName,
+    overlayName: overlayName,
   };
   markersArray.push(newMarker); //add new marker object to the array
 
-  let targetLayer = layersArray.find((layer) => layer.name === layerName); //find a layer in an array with the same input layer
-
   // Create a green icon marker and store it in the markers object
-  markersArray[markerID] = L.marker(markerCoordinates, {
-    icon: greenIcon,
-  });
+  const marker = L.marker(markerCoordinates, { icon: greenIcon });
   const customPopupContent = `<div class="custom-popup">${markerName}</div>`; //create custom popup with marker name
-  markersArray[markerID].bindPopup(customPopupContent).openPopup(); //add a popup to the marker and open it
-  targetLayer.group.addLayer(markersArray[markerID]); //add the marker to the layergroup of the target layer
+  marker.bindPopup(customPopupContent).openPopup();
 
+  let targetLayer = overlaysArray.find((layer) => layer.name === overlayName); //find a layer in an array with the same input layer
+  targetLayer.group.addLayer(marker); //add the marker to the layergroup of the target layer
   var listContainer = document.querySelector(".custom-markers-container");
 
-  addToList(listContainer, layerName, markerName, markerCoordinates, markerID);
+  addToList(
+    listContainer,
+    overlayName,
+    markerName,
+    markerCoordinates,
+    markerID
+  );
 }
 //AddMarker function ends here
 
@@ -246,9 +249,9 @@ Cords.on("dragend", () => {
       <input type="text" class="markerName" name="markerName">
     </div>
     <div class="row-two">
-      <label for="layerName">Layer:</label>
+      <label for="overlayName">Layer:</label>
       <br>
-      <input type="text" class="layerName" name="layerName">
+      <input type="text" class="overlayName" name="overlayName">
     </div>
     <br>
     <div class="row-three">
@@ -263,10 +266,11 @@ Cords.on("dragend", () => {
 //Function for exporting markers to JSON file
 document.querySelector(".export").addEventListener("click", function () {
   if (markersArray.length > 0) {
-    const markerData = markersArray.map((marker) => {
-      const { markerName, coordinates, overlayName } = marker;
+    let markerData = markersArray.map((marker) => {
+      let { markerID, markerName, coordinates, overlayName } = marker;
       return {
-        name: markerName,
+        markerID: markerID,
+        markerName: markerName,
         coordinates: coordinates,
         overlayName: overlayName,
       };
@@ -274,9 +278,7 @@ document.querySelector(".export").addEventListener("click", function () {
     const jsonBlob = new Blob([JSON.stringify(markerData, null, 2)], {
       type: "application/json",
     });
-
     const url = URL.createObjectURL(jsonBlob);
-
     const a = document.createElement("a");
     a.href = url;
     a.download = "markers.json";
@@ -291,6 +293,71 @@ document.querySelector(".export").addEventListener("click", function () {
 });
 //end of export function
 //end of the own markers section
+
+// Base markers section
+const jsonUrl = "../markers.json";
+fetch(jsonUrl)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    function createObject(markerID, markerName, coordinates, overlayName) {
+      return {
+        markerID,
+        markerName,
+        coordinates,
+        overlayName,
+      };
+    }
+    data.forEach((marker) => {
+      const baseMarker = createObject(
+        marker.markerID,
+        marker.markerName,
+        marker.coordinates,
+        marker.overlayName
+      );
+      worldMarkers.push(baseMarker);
+      addNewOverlay(marker.overlayName);
+    });
+
+    // After fetching markers, add them to the map
+    addBaseMarkers();
+  })
+  .catch((error) => {
+    console.error(`Fetch error: ${error.message}`);
+  });
+
+  function addBaseMarkers() {
+    var listContainer = document.querySelector(".base-markers-container");
+  
+    worldMarkers.forEach((marker) => {
+      // Assuming you want to create a Leaflet marker for each object in worldMarkers
+      const leafletMarker = L.marker(marker.coordinates);
+      const customPopupContent = `<div class="custom-popup">${marker.markerName}</div>`;
+      leafletMarker.bindPopup(customPopupContent).openPopup();
+  
+      let targetLayer = overlaysArray.find(
+        (layer) => layer.name === marker.overlayName
+      );
+      if (targetLayer) {
+        targetLayer.group.addLayer(leafletMarker);
+        console.log(`Marker added for ${marker.markerName}`);
+      } else {
+        console.error(`Overlay not found for marker: ${marker.markerName}`);
+      }
+      addToList(
+        listContainer,
+        marker.overlayName,
+        marker.markerName,
+        marker.coordinates,
+        marker.markerID
+      );
+    });
+  }
+
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Loaded Successfully");
