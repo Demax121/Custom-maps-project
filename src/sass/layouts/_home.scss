@@ -1,7 +1,7 @@
 body,
 html{
     background-color: var(--bg-crl-primary);
-    font-family: 'mopsmedium';
+    font-family: 'almendra-regular';
 }
 
 
@@ -15,7 +15,7 @@ html{
 
 .custom-popup { //popups for created markers
     max-height: 1.5rem;
-    font-family: 'mopsmedium';
+    font-family: 'almendra-regular';
     font-size: 1.25rem;
     text-align: center;
 }
@@ -63,7 +63,7 @@ html{
 }
 
 .leaflet-control-layers {
-    font-family: 'mopsmedium';
+    font-family: 'almendra-regular';
     background-color: var(--nav-crl-primary);
     color: var(--fnt-crl-primary);;
     font-size: 14pt;

@@ -1,5 +1,6 @@
-var mapPath = "../maps/test/{z}/{y}/{x}.webp";
+var mapPath = "../maps/test/{z}/{y}/{x}.webp"; //link to map tiles
 
+//setting up the map layer
 var fullmap = L.tileLayer(mapPath, {
   minZoom: 0,
   maxZoom: 5,
@@ -7,12 +8,14 @@ var fullmap = L.tileLayer(mapPath, {
   noWrap: true,
 });
 
+//initializing the map
 var Worldmap = L.map("map", {
   layers: [fullmap],
   zoomSnap: 0.25,
   zoomControl: false,
 }).setView([0, 0], 2);
 
+//adding zoom controlsto the topright corner
 L.control
   .zoom({
     position: "topright",
@@ -20,6 +23,7 @@ L.control
 
   .addTo(Worldmap);
 
+//initializing sidebar
 var sidebar = L.control.sidebar("sidebar").addTo(Worldmap);
 var layerControl = L.control
   .layers(null, null, { collapsed: true })
@@ -46,7 +50,6 @@ var greenIcon = new L.Icon({
 //end of custom icons
 
 //Functionality for overall stuff
-
 document
   .querySelector(".checkpoint-menu-toggle")
   .addEventListener("click", () => {
@@ -147,8 +150,10 @@ function addToList(
   newlistItem.querySelector(".marker-list-item").dataset.layer = overlayName;
   newlistItem.querySelector(".marker-link").dataset.markerid = markerID;
   newlistItem.querySelector(".marker-link").textContent = markerName;
-  newlistItem.querySelector(".marker-info").textContent =
-    "Coordinates: " + markerCoordinates;
+  const [lat, lng] = markerCoordinates;
+  newlistItem.querySelector(
+    ".marker-info"
+  ).textContent = `Lat: ${lat}, Lng: ${lng}`;
 
   targetLayer.appendChild(newlistItem);
 }
@@ -195,7 +200,7 @@ function addMarker() {
     return; // Exit the function without adding a duplicate marker
   }
 
-  newID(); //increase ID by one simpul
+  newID(); //increase ID by one
   uniqueNames.add(markerName); //add marker name to unique names set
   uniqueCoordinates.add(markerCoordinates); //add marker coordinates to unique coordinates set
   // Create a new marker object from input
@@ -267,9 +272,8 @@ Cords.on("dragend", () => {
 document.querySelector(".export").addEventListener("click", function () {
   if (markersArray.length > 0) {
     let markerData = markersArray.map((marker) => {
-      let { markerID, markerName, coordinates, overlayName } = marker;
+      let { markerName, coordinates, overlayName } = marker;
       return {
-        markerID: markerID,
         markerName: markerName,
         coordinates: coordinates,
         overlayName: overlayName,
@@ -330,34 +334,34 @@ fetch(jsonUrl)
     console.error(`Fetch error: ${error.message}`);
   });
 
-  function addBaseMarkers() {
-    var listContainer = document.querySelector(".base-markers-container");
-  
-    worldMarkers.forEach((marker) => {
-      // Assuming you want to create a Leaflet marker for each object in worldMarkers
-      const leafletMarker = L.marker(marker.coordinates);
-      const customPopupContent = `<div class="custom-popup">${marker.markerName}</div>`;
-      leafletMarker.bindPopup(customPopupContent).openPopup();
-  
-      let targetLayer = overlaysArray.find(
-        (layer) => layer.name === marker.overlayName
-      );
-      if (targetLayer) {
-        targetLayer.group.addLayer(leafletMarker);
-        console.log(`Marker added for ${marker.markerName}`);
-      } else {
-        console.error(`Overlay not found for marker: ${marker.markerName}`);
-      }
-      addToList(
-        listContainer,
-        marker.overlayName,
-        marker.markerName,
-        marker.coordinates,
-        marker.markerID
-      );
-    });
-  }
+function addBaseMarkers() {
+  var listContainer = document.querySelector(".base-markers-container");
 
+  worldMarkers.forEach((marker) => {
+    // Assuming you want to create a Leaflet marker for each object in worldMarkers
+    const leafletMarker = L.marker(marker.coordinates);
+    const customPopupContent = `<div class="custom-popup">${marker.markerName}</div>`;
+    leafletMarker.bindPopup(customPopupContent).openPopup();
+
+    let targetLayer = overlaysArray.find(
+      (layer) => layer.name === marker.overlayName
+    );
+    if (targetLayer) {
+      targetLayer.group.addLayer(leafletMarker);
+      //console.log(`Marker added for ${marker.markerName}`); <-- for debuging purposes
+    }
+    // else {
+    //   console.error(`Overlay not found for marker: ${marker.markerName}`); <-- for debuging purposes
+    // }
+    addToList(
+      listContainer,
+      marker.overlayName,
+      marker.markerName,
+      marker.coordinates,
+      marker.markerID
+    );
+  });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Loaded Successfully");

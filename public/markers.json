@@ -1,65 +1,50 @@
 [
   {
-    "markerID": 1,
-    "markerName": "A",
+    "markerName": "Hermsdorf",
     "coordinates": [
-      "66.79",
-      "48.87"
+      "-23.85",
+      "-36.78"
     ],
-    "overlayName": "A"
+    "overlayName": "Miasta"
   },
   {
-    "markerID": 2,
-    "markerName": "B",
+    "markerName": "Unterreit",
     "coordinates": [
-      "-44.59",
-      "50.63"
+      "-11.44",
+      "-40.65"
     ],
-    "overlayName": "B"
+    "overlayName": "Wioski"
   },
   {
-    "markerID": 3,
-    "markerName": "C",
+    "markerName": "Rosenberg",
     "coordinates": [
-      "41.77",
-      "153.31"
+      "-15.88",
+      "-29.27"
     ],
-    "overlayName": "C"
+    "overlayName": "Wioski"
   },
   {
-    "markerID": 4,
-    "markerName": "D",
+    "markerName": "Lisia Dąbrowa",
     "coordinates": [
-      "62.59",
-      "-28.13"
+      "9.01",
+      "-58.41"
     ],
-    "overlayName": "D"
+    "overlayName": "Lasy"
   },
   {
-    "markerID": 5,
-    "markerName": "E",
+    "markerName": "Radische",
     "coordinates": [
-      "-43.83",
-      "-25.67"
+      "2.32",
+      "17.54"
     ],
-    "overlayName": "E"
+    "overlayName": "Miasta"
   },
   {
-    "markerID": 6,
-    "markerName": "Cc",
+    "markerName": "Nebelsee",
     "coordinates": [
-      "21.29",
-      "28.83"
+      "58.96",
+      "12.16"
     ],
-    "overlayName": "C"
-  },
-  {
-    "markerID": 7,
-    "markerName": "Cccc",
-    "coordinates": [
-      "6.66",
-      "90.01"
-    ],
-    "overlayName": "E"
+    "overlayName": "Jeziora"
   }
 ]

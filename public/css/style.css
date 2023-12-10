@@ -77,14 +77,32 @@ img, picture, video, canvas, svg {
 /* Font import */
 @font-face {
   font-family: "mopsmedium";
-  src: url("../assets/mops-webfont.woff2") format("woff2"), url("../assets/mops-webfont.woff") format("woff");
+  src: url("../assets/fonts/mops-webfont.woff2") format("woff2"), url("../assets/fonts/mops-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "almendra-italic";
+  src: url("../assets/fonts/almendra-italic-webfont.woff") format("woff"), url("../assets/fonts/almendra-italic-webfont.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: "almendra-regular";
+  src: url("../assets/fonts/almendra-regular-webfont.woff") format("woff"), url("../assets/fonts/almendra-regular-webfont.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "almendra-regularSC";
+  src: url("../assets/fonts/almendrasc-regular-webfont.woff") format("woff"), url("../assets/fonts/almendrasc-regular-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 body,
 html {
   background-color: var(--bg-crl-primary);
-  font-family: "mopsmedium";
+  font-family: "almendra-regular";
 }
 
 #map {
@@ -97,7 +115,7 @@ html {
 
 .custom-popup {
   max-height: 1.5rem;
-  font-family: "mopsmedium";
+  font-family: "almendra-regular";
   font-size: 1.25rem;
   text-align: center;
 }
@@ -141,7 +159,7 @@ html {
 }
 
 .leaflet-control-layers {
-  font-family: "mopsmedium";
+  font-family: "almendra-regular";
   background-color: var(--nav-crl-primary);
   color: var(--fnt-crl-primary);
   font-size: 14pt;
@@ -347,7 +365,6 @@ html {
   right: 0;
   box-sizing: border-box;
   padding: 10px 20px;
-  font-size: 1.3rem;
 }
 
 .sidebar-pane.active {
@@ -362,7 +379,7 @@ html {
   border-bottom: 2px solid var(--fnt-crl-primary);
   text-transform: uppercase;
   text-align: center;
-  font-size: 2.3rem;
+  font-size: 2.25rem;
 }
 
 .fa-caret-left {
@@ -409,7 +426,7 @@ html {
     font-size: 1.5rem;
   }
   .button-controls {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -485,9 +502,8 @@ html {
     width: 560px;
   }
 }
-.marker-list-container {
-  text-decoration: none;
-  color: var(--fnt-crl-primary);
+.list-container {
+  margin-bottom: 1rem;
 }
 
 .marker-list-toggle {
@@ -502,6 +518,18 @@ html {
 
 .marker-list-toggle:hover {
   text-decoration: none;
+}
+
+.marker-link:hover {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.item-controls {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--fnt-crl-primary);
+  text-decoration: underline;
 }
 
 .marker-link {
@@ -530,4 +558,19 @@ html {
 .marker-list--open {
   padding-top: 1rem;
   display: block;
+}
+
+@media (max-width: 992px) {
+  .marker-list-item {
+    font-size: 0.85rem;
+  }
+  .marker-link {
+    font-size: inherit;
+  }
+  .marker-info {
+    font-size: inherit;
+  }
+  .marker-list-toggle {
+    font-size: 1.25rem;
+  }
 }

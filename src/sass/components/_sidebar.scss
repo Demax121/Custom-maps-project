@@ -183,7 +183,6 @@
   right: 0;
   box-sizing: border-box;
   padding: 10px 20px;
-  font-size: 1.3rem; //font-size of the content inside sidebar pane
 }
 
 .sidebar-pane.active {
@@ -198,7 +197,7 @@
   border-bottom: 2px solid var(--fnt-crl-primary);
   text-transform: uppercase;
   text-align: center;
-  font-size: 2.3rem; //header font size
+  font-size: 2.25rem; //header font size
 }
 
 .fa-caret-left {
@@ -250,7 +249,7 @@
   }
 
   .button-controls {
-    font-size: 1rem;
+    font-size: 0.8rem;
 
   }
 }
@@ -311,6 +310,9 @@
   .sidebar-right {
     right: 0;
   }
+
+
+  
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {

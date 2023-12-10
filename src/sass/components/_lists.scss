@@ -1,9 +1,7 @@
 
 
-.marker-list-container{
-    text-decoration: none;
-    color: var(--fnt-crl-primary);
-
+.list-container{
+        margin-bottom: 1rem;
 }
 
 .marker-list-toggle{
@@ -14,16 +12,27 @@
     color: var(--fnt-crl-primary);
     font-size: 1.75rem;
     cursor: pointer;
-    
 }
 
 .marker-list-toggle:hover{
     text-decoration: none;
 }
 
-.marker-list-item{
+.marker-link:hover{
+    color: rgba(255, 255, 255, .45);
 
 }
+
+.item-controls{
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--fnt-crl-primary);
+    text-decoration: underline;
+}
+
+
+
 
 .marker-link{
     text-decoration: none;
@@ -31,6 +40,7 @@
     font-size: 1.45rem;
     margin-right:5rem;
     outline: 1px solid red;
+    
 }
 
 
@@ -58,3 +68,17 @@
 }
 
 
+@media (max-width: 992px) {
+    .marker-list-item{
+        font-size: 0.85rem;
+    }
+    .marker-link{
+        font-size: inherit;
+    }
+    .marker-info{
+        font-size: inherit;
+    }
+    .marker-list-toggle{
+        font-size: 1.25rem;
+    }
+  }
