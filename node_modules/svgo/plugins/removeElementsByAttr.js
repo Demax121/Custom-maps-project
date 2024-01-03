@@ -3,8 +3,6 @@
 const { detachNodeFromParent } = require('../lib/xast.js');
 
 exports.name = 'removeElementsByAttr';
-exports.type = 'visitor';
-exports.active = false;
 exports.description =
   'removes arbitrary elements by ID or className (disabled by default)';
 
@@ -39,10 +37,7 @@ exports.description =
  *
  * @author Eli Dupuis (@elidupuis)
  *
- * @type {import('../lib/types').Plugin<{
- *   id?: string | Array<string>,
- *   class?: string | Array<string>
- * }>}
+ * @type {import('./plugins-types').Plugin<'removeElementsByAttr'>}
  */
 exports.fn = (root, params) => {
   const ids =

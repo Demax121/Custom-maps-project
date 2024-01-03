@@ -7,9 +7,7 @@
 const { detachNodeFromParent } = require('../lib/xast.js');
 const { elemsGroups } = require('./_collections.js');
 
-exports.type = 'visitor';
 exports.name = 'removeUselessDefs';
-exports.active = true;
 exports.description = 'removes elements in <defs> without id';
 
 /**
@@ -17,7 +15,7 @@ exports.description = 'removes elements in <defs> without id';
  *
  * @author Lev Solntsev
  *
- * @type {import('../lib/types').Plugin<void>}
+ * @type {import('./plugins-types').Plugin<'removeUselessDefs'>}
  */
 exports.fn = () => {
   return {
@@ -32,10 +30,12 @@ exports.fn = () => {
           if (usefulNodes.length === 0) {
             detachNodeFromParent(node, parentNode);
           }
-          // TODO remove in SVGO 3
+          // TODO remove legacy parentNode in v4
           for (const usefulNode of usefulNodes) {
-            // @ts-ignore parentNode is legacy
-            usefulNode.parentNode = node;
+            Object.defineProperty(usefulNode, 'parentNode', {
+              writable: true,
+              value: node,
+            });
           }
           node.children = usefulNodes;
         } else if (

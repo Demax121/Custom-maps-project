@@ -1,5 +1,6 @@
 [
   {
+    "markerID": "1",
     "markerName": "Hermsdorf",
     "coordinates": [
       "-23.85",
@@ -8,6 +9,7 @@
     "overlayName": "Miasta"
   },
   {
+    "markerID": "2",
     "markerName": "Unterreit",
     "coordinates": [
       "-11.44",
@@ -16,6 +18,7 @@
     "overlayName": "Wioski"
   },
   {
+    "markerID": "3",
     "markerName": "Rosenberg",
     "coordinates": [
       "-15.88",
@@ -24,6 +27,7 @@
     "overlayName": "Wioski"
   },
   {
+    "markerID": "4",
     "markerName": "Lisia Dąbrowa",
     "coordinates": [
       "9.01",
@@ -32,6 +36,7 @@
     "overlayName": "Lasy"
   },
   {
+    "markerID": "5",
     "markerName": "Radische",
     "coordinates": [
       "2.32",
@@ -40,6 +45,7 @@
     "overlayName": "Miasta"
   },
   {
+    "markerID": "6",
     "markerName": "Nebelsee",
     "coordinates": [
       "58.96",

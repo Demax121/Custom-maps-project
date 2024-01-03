@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +9,33 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Mapa</title>
 </head>
+
+
 <body>
-  
+
+    <dialog class="modal">
+        <div class="modal-body">
+            <p class="modal-title">Provide new name for marker</p>
+            <input type="text" maxlength="25" class="modal-input">
+            <button class="btn-sidebar modal-accept">Change name</button>
+            <button class="btn-sidebar modal-close">Close</button>
+        </div>
+    </dialog> 
+
     <div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
-        <div class="sidebar-tabs">
-            <ul role="tablist">
+        <div class="sidebar-tabs flex-container">
+            <ul role="list">
                 <li><a href="#home" role="tab"><i class="fa fa-bars" aria-hidden="true"></i></a></li>
-                <li><a href="#WorldMarkers" role="tab" class="wordlMarkers"><i class="fa-solid fa-earth-americas"></i></a></li>
-                <li><a href="#OwnMarkers" role="tab" class="ownMarkers"><i class="fa-solid fa-location-dot"></i></a></li>
+                <li><a href="#WorldMarkers" role="tab" class="world-markers"><i class="fa-solid fa-earth-americas"></i></a></li>
+                <li><a href="#custom-markers" role="tab" class="custom-markers"><i class="fa-solid fa-location-dot"></i></a></li>
             </ul>
-
-
-            <ul role="tablist">
+<!-- This section can be removed -->
+            <ul role="list">
                 <li><a href="#info" role="tab"><i class="fa-solid fa-circle-info"></i></a></li>
                 <li><a href="https://github.com/Demax121" target="_blank"><i class="fa-brands fa-github"></i></a></li>
             </ul>
-            
+<!-- This section can be removed -->
         </div>
 
         <!-- Tab panes -->
@@ -46,39 +57,56 @@
 
                 </div>
             </div>
-            <div class="sidebar-pane" id="OwnMarkers">
-                <h1 class="sidebar-header">Your locations<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            <div class="sidebar-pane" id="custom-markers">
+                <h1 class="sidebar-header">Your locations<span class="sidebar-close"><i
+                            class="fa fa-caret-left"></i></span></h1>
 
                 <div class="button-controls">
-                <button class="export btn-sidebar">Export Markers</button>
-                <button class="checkpoint-menu-toggle btn-sidebar"><p>Checkpoint Menu</p><i class="fa-solid fa-arrow-down checkpoint-menu-icon flip-icon"></i></button>
-                <div class="monke-solution"></div>
-                <div class="checkpoint-menu">
-                <button class="open__checkpoint btn-sidebar">Add checkpoint</button>
-                <button class="close__checkpoint btn-sidebar">Close checkpoint</button>
-            </div>
-            </div>
-            
+                    <div class="col col-1">
+                        <button class="export-menu-toggle btn-sidebar">
+                            <p>Export Menu</p><i class="fa-solid fa-arrow-down export-menu-icon flip-icon"></i>
+                        </button>
+                        <div class="export-menu menu">
+                            <button class="export-json btn-sidebar">Export .json</button>
+                            <button class="export-txt btn-sidebar">Export .txt</button>
+                        </div>
+                    </div>
+
+                    <div class="col col-2">
+                        <button class="checkpoint-menu-toggle btn-sidebar">
+                            <p>Checkpoint Menu</p><i class="fa-solid fa-arrow-down checkpoint-menu-icon flip-icon"></i>
+                        </button>
+                        <div class="checkpoint-menu menu">
+                            <button class="open__checkpoint btn-sidebar">Add checkpoint</button>
+                            <button class="close__checkpoint btn-sidebar">Close checkpoint</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="marker-list-container custom-markers-container">
-
-
                 </div>
             </div>
-           
-         
+
+
 
             <div class="sidebar-pane" id="info">
-                <h1 class="sidebar-header">INFORMATIONS<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                <p>Thanks for coming here. This project has been created for people who would like to host their map website<br><br>
-                    I`m a TTRPG player and have always wanted to make maps for my players and myself more accessible when playing online, that`s why I`ve been going through a lot of things that could make it possible, and as there are a lot of options none of them have satisfied me enough.<br><br>
-                    That`s why I have created this whole Custom RPG Maps project using <a href="https://leafletjs.com/" class="link">leafletJS</a> and <a href="https://github.com/Turbo87/sidebar-v2"class="link">leaflet Sidebarv2</a>
+                <h1 class="sidebar-header">INFORMATIONS<span class="sidebar-close"><i
+                            class="fa fa-caret-left"></i></span></h1>
+                <p>Thanks for coming here. This project has been created for people who would like to host their map
+                    website<br><br>
+                    I`m a TTRPG player and have always wanted to make maps for my players and myself more accessible
+                    when playing online, that`s why I`ve been going through a lot of things that could make it possible,
+                    and as there are a lot of options none of them have satisfied me enough.<br><br>
+                    That`s why I have created this whole Custom RPG Maps project using leafletJS and leaflet Sidebarv2
                 </p><br><br>
-                <p>I hope it will come in handy for you dear user. You can modify it however you want or use it as it is I hope you will like what I have done here.</p> <br><br>
-                <p>Font used: <a href="https://www.fontsquirrel.com/fonts/almendra"  class="link">Alemendra by Ana Sanfelippo</a></p>
+                <p>I hope it will come in handy for you dear user. You can modify it however you want or use it as it is
+                    I hope you will like what I have done here.</p> <br><br>
+                <p>Font used: Abhaya Libre by Mooniak</p>
             </div>
         </div>
     </div>
-    <div id="map" class="sidebar-map"></div> 
+    <div id="map" class="sidebar-map">
+    </div>
 
 
     <!-- Templates section -->
@@ -86,36 +114,54 @@
     <!-- markers list templates-->
     <template id="sidebar-layer-template">
         <div class="list-container">
-        <button data-target-layer="" class="marker-list-toggle" >Layer Name</button>
-        <ul data-layer-group="" role="list" class="marker-list">
-        </ul>
-    </div>
+            <button data-target-layer="" class="marker-list-toggle">Layer Name</button>
+            <ul data-layer-group="" role="list" class="marker-list">
+            </ul>
+        </div>
     </template>
 
-    <template id="sidebar-marker-template">
-        <li class="marker-list-item" data-layer=""><a href="#" class="marker-link" data-marker-id=""></a> <span class="marker-info"></span> </li>
+    <template id="sidebar-marker-template--base">
+        <li class="marker-list-item" data-layer=""><a href="#" class="marker-link" data-marker-id=""></a> <span
+                class="marker-info"></span></li>
+    </template>
+
+    <template id="sidebar-marker-template--custom">
+        <li class="marker-list-item" data-layer=""><a href="#" class="marker-link" data-marker-id=""></a>
+            <div class="list-item-body"><span class="marker-info"></span>
+                <span class="item-controls">
+                <button class="item-btn marker-rename">Rename</button> 
+                <button class="item-btn marker-delete">Delete</button>
+            </span>
+        </div>
+        </li>
     </template>
     <!-- markers list templates-->
 
     <template id="checkpoint-popup-template">
-        <span class="coordinates"></span>
-        <div class="text-inputs">
+    
+        <div class="checkpoint-body">
+        <span class="checkpoint-coordinates"></span>
+        <div class="checkpoint-inputs">
             <label for="markerName" class="input-label">Location name:</label>
-            <input type="text" class="markerName" name="markerName">
+            <input type="text" class="markerName" name="markerName" maxlength="25">
+            <span class="name-required ">You must provide marker name</span>
             <label for="overlayName" class="input-label">Layer:</label>
-            <input type="text" class="overlayName" name="overlayName">
+            <input type="text" class="overlayName" name="overlayName" maxlength="25">
+            <span class="layer-required">You must provide layer name</span>
         </div>
-        <div class="controls">
+        <div class="checkpoint-controls">
             <button type="button" class="cbtn addMarker">Add to list</button>
             <button type="button" class="cbtn closeCords">Close</button>
-          </div>
+        </div>
+    </div>
     </template>
 
 
-        <!-- Templates section -->
+    <!-- Templates section -->
 
-<script src="leafletJS/leaflet.js"> </script>
-<script src="leafletJS/leaflet-sidebar.js"></script>
-<script src="scripts/engine.js"></script>
+    <script src="leafletJS/leaflet.js"> </script>
+    <script src="leafletJS/leaflet-sidebar.js"></script>
+    <script src="scripts/engine.js"></script>
 </body>
+
 </html>

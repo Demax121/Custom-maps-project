@@ -1,10 +1,8 @@
-
-
-.list-container{
-        margin-bottom: 1rem;
+.list-container {
+    margin-bottom: 1rem;
 }
 
-.marker-list-toggle{
+.marker-list-toggle {
     background: none;
     border: none;
     display: block;
@@ -12,73 +10,94 @@
     color: var(--fnt-crl-primary);
     font-size: 1.75rem;
     cursor: pointer;
-}
 
-.marker-list-toggle:hover{
-    text-decoration: none;
-}
-
-.marker-link:hover{
-    color: rgba(255, 255, 255, .45);
-
-}
-
-.item-controls{
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--fnt-crl-primary);
-    text-decoration: underline;
-}
-
-
-
-
-.marker-link{
-    text-decoration: none;
-    color: inherit;
-    font-size: 1.45rem;
-    margin-right:5rem;
-    outline: 1px solid red;
+    &:hover {
+        text-decoration: none;
+    }
     
 }
 
+.marker-list-item {
+    display: grid;
+    grid-template-rows: repeat(2 1fr);
+}
 
-.marker-link:hover{
-    color: rgba(255, 255, 255, .45);
+.marker-info {
+    margin-right: 2rem;
+    font-size: 1.25rem;
+}
+
+.rename {
+    margin-right: 1rem;
+}
+
+.checkpoint-btn {
+    font-size: 1.25rem;
+
 }
 
 
-.marker-info{
-    font-size: 1.2rem;
+.marker-link {
+    text-decoration: none;
     color: inherit;
-    font-family: 'Franklin Gothic Regular';
-    outline: 1px solid red;
+    font-size: 1.45rem;
+    margin-right: 5rem;
+
+    &:hover {
+        color: rgba(255, 255, 255, .45);
+    }
 }
 
 
 
-.marker-list{
- display: none;
+
+.marker-info {
+    font-size: 1.25rem;
+    color: inherit;
+    font-family: 'abhaya_libreregular';
 }
 
-.marker-list--open{
+
+.item-btn {
+    background: none;
+    border: none;
+    color: var(--fnt-crl-primary);
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.marker-rename{
+    margin-right: 1rem;
+}
+
+
+.marker-list {
+    display: none;
+}
+
+.marker-list--open {
     padding-top: 1rem;
     display: block;
 }
 
 
 @media (max-width: 992px) {
-    .marker-list-item{
+    .checkpoint-btn {
         font-size: 0.85rem;
     }
-    .marker-link{
-        font-size: inherit;
+
+    .marker-link {
+        font-size: 1rem;
     }
-    .marker-info{
-        font-size: inherit;
+
+    .marker-info {
+        font-size: 0.85rem;
     }
-    .marker-list-toggle{
+
+    .marker-list-toggle {
         font-size: 1.25rem;
     }
-  }
+}

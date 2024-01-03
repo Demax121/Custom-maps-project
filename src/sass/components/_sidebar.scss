@@ -14,17 +14,23 @@
 }
 
 .button-controls {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Adjust the number of columns as needed */
+  display: flex;
+  grid-auto-flow: column;
   gap: 0.75rem;
   font-size: 1.4rem;
 }
 
+.col {
+  margin: 0 auto;
+}
 
 .btn-sidebar {
+  border: 0.15rem var(--nav-crl-primary);
+  border-radius: .25rem;
   color: var(--nav-crl-primary);
   text-decoration: none;
   cursor: pointer;
+  padding: 0 .5rem;
 }
 
 .btn-sidebar>p {
@@ -32,14 +38,24 @@
   margin-right: 1rem;
 }
 
-.checkpoint-menu {
+.menu {
+  margin-top: .75rem;
   display: none;
 }
 
-.checkpoint-menu-active {
+.menu--active {
   display: grid;
   grid-template-rows: 1fr;
   gap: 0.5rem;
+}
+
+.flex-container{
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
 }
 
 .checkpoint-menu-icon {
@@ -47,20 +63,8 @@
 }
 
 .flip-icon {
-  transform: rotate(0deg);
-  animation: flip 200ms ease-in-out forwards;
+  transform: rotate(180deg);
 }
-
-@keyframes flip {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(180deg);
-  }
-}
-
 
 .sidebar-left {
   left: 0;
@@ -73,8 +77,9 @@
 .sidebar-tabs {
   top: 0;
   bottom: 0;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5) //background color of the panel when shown
+  background-color: rgba(0, 0, 0, .5); //background color of the panel when shown
+  overflow-y: auto;
+
 }
 
 .sidebar-left .sidebar-tabs {
@@ -87,11 +92,9 @@
 
 .sidebar-tabs,
 .sidebar-tabs>ul {
-  position: absolute;
   width: var(--width-desktop); //size of the navbar icons
   margin: 0;
   padding: 0;
-  list-style-type: none;
 }
 
 .sidebar-tabs>li,
@@ -136,7 +139,6 @@
 .sidebar-tabs>ul>li>a {
   display: block;
   width: 100%;
-  height: 100%;
   line-height: var(--width-desktop); //making icons look more regular
   color: inherit;
   text-decoration: none;
@@ -154,6 +156,8 @@
   overflow-x: hidden;
   overflow-y: auto;
   color: var(--fnt-crl-primary); //text color of the shown panel
+
+  padding: 0.75rem;
 }
 
 .sidebar-content .link {
@@ -165,7 +169,7 @@
 .sidebar-left .sidebar-content {
   left: var(--width-desktop);
   right: 0;
-  padding-left: 10px;
+  padding-left: 0.5rem;
 }
 
 .sidebar-right .sidebar-content {
@@ -174,15 +178,14 @@
 }
 
 .sidebar.collapsed>.sidebar-content {
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 .sidebar-pane {
   display: none;
   left: 0;
   right: 0;
-  box-sizing: border-box;
-  padding: 10px 20px;
+  padding: 0.5rem;
 }
 
 .sidebar-pane.active {
@@ -194,7 +197,7 @@
   max-height: 3rem;
   padding: 0 1.25rem;
   color: var(--fnt-crl-primary);
-  border-bottom: 2px solid var(--fnt-crl-primary);
+  border-bottom: 0.15rem solid var(--fnt-crl-primary);
   text-transform: uppercase;
   text-align: center;
   font-size: 2.25rem; //header font size
@@ -210,7 +213,7 @@
 
 .sidebar-close {
   position: absolute;
-  top: 0;
+  top: 1rem;
   width: var(--width-desktop);
   height: var(--width-desktop);
   text-align: center;
@@ -234,13 +237,10 @@
 }
 
 .sidebar-content li {
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
 
-
-
 // Sidebar media queries
-
 @media (max-width: 992px) {
   .sidebar-header {
     height: 2.5rem;
@@ -249,14 +249,14 @@
   }
 
   .button-controls {
-    font-size: 0.8rem;
+    font-size: 1rem;
 
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   .sidebar-pane {
-    min-width: 300px;
+    min-width: 20%;
   }
 
   .sidebar-left~.sidebar-map .leaflet-left {
@@ -268,7 +268,7 @@
   }
 
   .sidebar {
-    width: 370px;
+    width: 50%;
   }
 }
 
@@ -311,13 +311,11 @@
     right: 0;
   }
 
-
-  
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
   .sidebar-pane {
-    min-width: 350px;
+    min-width: 20%;
   }
 
   .sidebar-left~.sidebar-map .leaflet-left {
@@ -329,13 +327,24 @@
   }
 
   .sidebar {
-    width: 400px;
+    width: 25%;
+  }
+
+  .sidebar-header {
+    height: 2.5rem;
+    max-height: 2.5rem;
+    font-size: 1.75rem;
+  }
+
+  .button-controls {
+    font-size: 1rem;
   }
 }
 
 @media (min-width: 1200px) {
   .sidebar-pane {
-    min-width: 420px;
+    min-width: 25%;
+    font-size: 1.25rem;
   }
 
   .sidebar-left~.sidebar-map .leaflet-left {
@@ -345,16 +354,9 @@
   .sidebar-right~.sidebar-map .leaflet-right {
     right: 470px;
   }
-
   .sidebar {
-    width: 560px;
+    width: 30%;
   }
 }
-
-
-
 //end of sidebar media queries
-
-
-
 //End of sidebar styling

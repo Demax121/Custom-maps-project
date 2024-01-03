@@ -3,8 +3,6 @@
 const { removeLeadingZero } = require('../lib/svgo/tools.js');
 
 exports.name = 'cleanupListOfValues';
-exports.type = 'visitor';
-exports.active = false;
 exports.description = 'rounds list of values to the fixed precision';
 
 const regNumericValues =
@@ -34,12 +32,7 @@ const absoluteLengths = {
  *
  * @author kiyopikko
  *
- * @type {import('../lib/types').Plugin<{
- *   floatPrecision?: number,
- *   leadingZero?: boolean,
- *   defaultPx?: boolean,
- *   convertToPx?: boolean
- * }>}
+ * @type {import('./plugins-types').Plugin<'cleanupListOfValues'>}
  */
 exports.fn = (_root, params) => {
   const {

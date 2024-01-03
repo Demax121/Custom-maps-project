@@ -1,0 +1,99 @@
+.custom-popup { //popups for created markers
+    font-family: 'abhaya_libreregular';
+    font-size: 1.25rem;
+    text-align: center;
+    
+}
+
+.checkpoint-body{
+    display: grid;
+    grid-template-rows: repeat(3 1fr);
+    gap: 0.75rem;
+   font-size: 0.85rem;
+}
+.checkpoint-coordinates{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.leaflet-popup-content-wrapper{
+    box-shadow: 3px 14px 18px 6px rgba(0,0,0,0.46);
+    -webkit-box-shadow: 3px 14px 18px 6px rgba(0,0,0,0.46);
+    -moz-box-shadow: 3px 14px 18px 6px rgba(0,0,0,0.46);
+}
+
+// .leaflet-popup-tip{
+
+// }
+
+.input-label{
+    display: block;
+}
+
+
+.cbtn{ //Checkpoint buttons styling
+    
+    display: inline-block;
+    cursor: pointer;
+    padding: 0.25rem 0.75rem;
+    background: rgba(86, 106, 229, 1);
+    border: none;
+    color: #FFFFFF;
+    border-radius: 1rem;
+    &:hover{
+        background: rgba(34, 44, 112, 1);
+        text-decoration: underline;
+        box-shadow: -1px 11px 14px 1px rgba(0,0,0,0.25);
+        -webkit-box-shadow: -1px 11px 14px 1px rgba(0,0,0,0.25);
+        -moz-box-shadow: -1px 11px 14px 1px rgba(0,0,0,0.25);
+    }
+}
+
+.leaflet-popup-content{
+    font-size: 1.15rem;
+}
+
+
+.name-required{
+    color: rgb(201, 45, 34);
+    font-size: 0.75rem;
+    display: none;
+
+    &--active{
+    display: block;
+}
+}
+.layer-required{
+    color: rgb(240, 33, 18);
+    font-size: 0.75rem;
+    display: none;
+
+    &--active{
+    display: block;
+    }
+}
+
+
+.input-required{
+    border: 2px solid rgb(240, 33, 18);
+}
+
+
+
+@media (min-width: 1200px) {
+
+.checkpoint-body{
+   font-size: 1.15rem;
+}
+
+.checkpoint-coordinates{
+    font-size: 1.15rem;
+}
+.field-required{
+    font-size: 0.85rem;
+}
+
+
+}
+
+

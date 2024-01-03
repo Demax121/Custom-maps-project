@@ -1,8 +1,6 @@
 'use strict';
 
 exports.name = 'addClassesToSVGElement';
-exports.type = 'visitor';
-exports.active = false;
 exports.description = 'adds classnames to an outer <svg> element';
 
 var ENOCLS = `Error in plugin "addClassesToSVGElement": absent parameters.
@@ -51,10 +49,7 @@ plugins: [
  *
  * @author April Arcus
  *
- * @type {import('../lib/types').Plugin<{
- *   className?: string,
- *   classNames?: Array<string>
- * }>}
+ * @type {import('./plugins-types').Plugin<'addClassesToSVGElement'>}
  */
 exports.fn = (root, params) => {
   if (

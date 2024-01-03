@@ -2,9 +2,7 @@
 
 const collections = require('./_collections.js');
 
-exports.type = 'visitor';
 exports.name = 'convertColors';
-exports.active = true;
 exports.description = 'converts colors: rgb() to #rrggbb and #rrggbb to #rgb';
 
 const rNumber = '([+-]?(?:\\d*\\.\\d+|\\d+\\.?)%?)';
@@ -63,13 +61,7 @@ const convertRgbToHex = ([r, g, b]) => {
  *
  * @author Kir Belevich
  *
- * @type {import('../lib/types').Plugin<{
- *   currentColor?: boolean | string | RegExp,
- *   names2hex?: boolean,
- *   rgb2hex?: boolean,
- *   shorthex?: boolean,
- *   shortname?: boolean,
- * }>}
+ * @type {import('./plugins-types').Plugin<'convertColors'>}
  */
 exports.fn = (_root, params) => {
   const {

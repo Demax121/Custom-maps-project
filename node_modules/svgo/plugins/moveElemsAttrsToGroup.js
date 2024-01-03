@@ -3,9 +3,7 @@
 const { visit } = require('../lib/xast.js');
 const { inheritableAttrs, pathElems } = require('./_collections.js');
 
-exports.type = 'visitor';
 exports.name = 'moveElemsAttrsToGroup';
-exports.active = true;
 exports.description = 'Move common attributes of group children to the group';
 
 /**
@@ -28,7 +26,7 @@ exports.description = 'Move common attributes of group children to the group';
  *
  * @author Kir Belevich
  *
- * @type {import('../lib/types').Plugin<void>}
+ * @type {import('./plugins-types').Plugin<'moveElemsAttrsToGroup'>}
  */
 exports.fn = (root) => {
   // find if any style element is present

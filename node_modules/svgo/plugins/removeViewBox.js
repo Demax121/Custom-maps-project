@@ -1,8 +1,6 @@
 'use strict';
 
-exports.type = 'visitor';
 exports.name = 'removeViewBox';
-exports.active = true;
 exports.description = 'removes viewBox attribute when possible';
 
 const viewBoxElems = ['svg', 'pattern', 'symbol'];
@@ -19,7 +17,7 @@ const viewBoxElems = ['svg', 'pattern', 'symbol'];
  *
  * @author Kir Belevich
  *
- * @type {import('../lib/types').Plugin<void>}
+ * @type {import('./plugins-types').Plugin<'removeViewBox'>}
  */
 exports.fn = () => {
   return {

@@ -3,33 +3,17 @@
 @font-face {
     font-family: 'mopsmedium';
     src: url('../assets/fonts/mops-webfont.woff2') format('woff2'),
-         url('../assets/fonts/mops-webfont.woff') format('woff');
+        url('../assets/fonts/mops-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
 }
 
 @font-face {
-    font-family:'almendra-italic';
-    src: url('../assets/fonts/almendra-italic-webfont.woff') format('woff'),
-         url('../assets/fonts/almendra-italic-webfont.woff2') format('woff2');
-         font-weight: normal;
-         font-style: italic;
-}
+    font-family: 'abhaya_libreregular';
+    src: url('../assets/fonts/abhayalibre-regular-webfont.woff2') format('woff2'),
+         url('../assets/fonts/abhayalibre-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 
-
-@font-face {
-    font-family: 'almendra-regular';
-    src: url('../assets/fonts/almendra-regular-webfont.woff') format('woff'),
-         url('../assets/fonts/almendra-regular-webfont.woff2') format('woff2');
-         font-weight: normal;
-         font-style: normal;
-}
-
-@font-face {
-    font-family: 'almendra-regularSC';
-    src: url('../assets/fonts/almendrasc-regular-webfont.woff') format('woff'),
-         url('../assets/fonts/almendrasc-regular-webfont.woff2') format('woff2');
-         font-weight: normal;
-         font-style: normal;
 }

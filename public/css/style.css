@@ -82,27 +82,46 @@ img, picture, video, canvas, svg {
   font-style: normal;
 }
 @font-face {
-  font-family: "almendra-italic";
-  src: url("../assets/fonts/almendra-italic-webfont.woff") format("woff"), url("../assets/fonts/almendra-italic-webfont.woff2") format("woff2");
-  font-weight: normal;
-  font-style: italic;
-}
-@font-face {
-  font-family: "almendra-regular";
-  src: url("../assets/fonts/almendra-regular-webfont.woff") format("woff"), url("../assets/fonts/almendra-regular-webfont.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "almendra-regularSC";
-  src: url("../assets/fonts/almendrasc-regular-webfont.woff") format("woff"), url("../assets/fonts/almendrasc-regular-webfont.woff2") format("woff2");
+  font-family: "abhaya_libreregular";
+  src: url("../assets/fonts/abhayalibre-regular-webfont.woff2") format("woff2"), url("../assets/fonts/abhayalibre-regular-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 body,
 html {
   background-color: var(--bg-crl-primary);
-  font-family: "almendra-regular";
+  font-family: "abhaya_libreregular";
+}
+
+.modal {
+  position: absolute;
+  margin: auto;
+  border: 2px solid rgb(0, 0, 0);
+  width: 40ch;
+  padding: 1rem;
+  max-height: 40ch;
+  box-shadow: -2px 11px 22px 4px rgba(0, 0, 0, 0.79);
+  -webkit-box-shadow: -2px 11px 22px 4px rgba(0, 0, 0, 0.79);
+  -moz-box-shadow: -2px 11px 22px 4px rgba(0, 0, 0, 0.79);
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.modal-body {
+  display: grid;
+  grid-template-rows: repeat(3 1fr);
+  gap: 0.25rem;
+}
+
+.modal-input {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+
+.modal-title {
+  font-size: 1.25rem;
 }
 
 #map {
@@ -111,37 +130,6 @@ html {
   height: 100%;
   max-height: 100%;
   background-color: var(--bg-crl-primary);
-}
-
-.custom-popup {
-  max-height: 1.5rem;
-  font-family: "almendra-regular";
-  font-size: 1.25rem;
-  text-align: center;
-}
-
-.cbtn {
-  display: inline-block;
-  cursor: pointer;
-  font-size: 1.15rem;
-  padding: 0 0.5rem;
-  height: 1.75rem;
-  max-height: 1.75rem;
-  background: #566AE5;
-  border: none;
-  color: #FFFFFF;
-}
-
-.markerName {
-  font-size: 1rem;
-}
-
-.overlayName {
-  font-size: 1rem;
-}
-
-.leaflet-popup-content {
-  font-size: 1.15rem;
 }
 
 .leaflet-bar a:last-child {
@@ -154,15 +142,15 @@ html {
 .leaflet-bar a:hover {
   background-color: var(--nav-crl-primary);
   color: var(--fnt-crl-primary);
-  font-size: 14pt;
+  font-size: 1.15rem;
   border-bottom: 1px solid #ccc;
 }
 
 .leaflet-control-layers {
-  font-family: "almendra-regular";
+  font-family: "abhaya_libreregular";
   background-color: var(--nav-crl-primary);
   color: var(--fnt-crl-primary);
-  font-size: 14pt;
+  font-size: 1.15rem;
 }
 
 .leaflet-control-zoom-in,
@@ -201,16 +189,23 @@ html {
 }
 
 .button-controls {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Adjust the number of columns as needed */
+  display: flex;
+  grid-auto-flow: column;
   gap: 0.75rem;
   font-size: 1.4rem;
 }
 
+.col {
+  margin: 0 auto;
+}
+
 .btn-sidebar {
+  border: 0.15rem var(--nav-crl-primary);
+  border-radius: 0.25rem;
   color: var(--nav-crl-primary);
   text-decoration: none;
   cursor: pointer;
+  padding: 0 0.5rem;
 }
 
 .btn-sidebar > p {
@@ -218,14 +213,24 @@ html {
   margin-right: 1rem;
 }
 
-.checkpoint-menu {
+.menu {
+  margin-top: 0.75rem;
   display: none;
 }
 
-.checkpoint-menu-active {
+.menu--active {
   display: grid;
   grid-template-rows: 1fr;
   gap: 0.5rem;
+}
+
+.flex-container {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
 }
 
 .checkpoint-menu-icon {
@@ -233,18 +238,9 @@ html {
 }
 
 .flip-icon {
-  transform: rotate(0deg);
-  animation: flip 200ms ease-in-out forwards;
+  transform: rotate(180deg);
 }
 
-@keyframes flip {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(180deg);
-  }
-}
 .sidebar-left {
   left: 0;
 }
@@ -256,8 +252,8 @@ html {
 .sidebar-tabs {
   top: 0;
   bottom: 0;
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
 }
 
 .sidebar-left .sidebar-tabs {
@@ -270,11 +266,9 @@ html {
 
 .sidebar-tabs,
 .sidebar-tabs > ul {
-  position: absolute;
   width: var(--width-desktop);
   margin: 0;
   padding: 0;
-  list-style-type: none;
 }
 
 .sidebar-tabs > li,
@@ -319,7 +313,6 @@ html {
 .sidebar-tabs > ul > li > a {
   display: block;
   width: 100%;
-  height: 100%;
   line-height: var(--width-desktop);
   color: inherit;
   text-decoration: none;
@@ -337,6 +330,7 @@ html {
   overflow-x: hidden;
   overflow-y: auto;
   color: var(--fnt-crl-primary);
+  padding: 0.75rem;
 }
 
 .sidebar-content .link {
@@ -347,7 +341,7 @@ html {
 .sidebar-left .sidebar-content {
   left: var(--width-desktop);
   right: 0;
-  padding-left: 10px;
+  padding-left: 0.5rem;
 }
 
 .sidebar-right .sidebar-content {
@@ -356,15 +350,14 @@ html {
 }
 
 .sidebar.collapsed > .sidebar-content {
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 .sidebar-pane {
   display: none;
   left: 0;
   right: 0;
-  box-sizing: border-box;
-  padding: 10px 20px;
+  padding: 0.5rem;
 }
 
 .sidebar-pane.active {
@@ -376,7 +369,7 @@ html {
   max-height: 3rem;
   padding: 0 1.25rem;
   color: var(--fnt-crl-primary);
-  border-bottom: 2px solid var(--fnt-crl-primary);
+  border-bottom: 0.15rem solid var(--fnt-crl-primary);
   text-transform: uppercase;
   text-align: center;
   font-size: 2.25rem;
@@ -392,7 +385,7 @@ html {
 
 .sidebar-close {
   position: absolute;
-  top: 0;
+  top: 1rem;
   width: var(--width-desktop);
   height: var(--width-desktop);
   text-align: center;
@@ -416,7 +409,7 @@ html {
 }
 
 .sidebar-content li {
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
 
 @media (max-width: 992px) {
@@ -426,12 +419,12 @@ html {
     font-size: 1.5rem;
   }
   .button-controls {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .sidebar-pane {
-    min-width: 300px;
+    min-width: 20%;
   }
   .sidebar-left ~ .sidebar-map .leaflet-left {
     left: 315px;
@@ -440,7 +433,7 @@ html {
     right: 315px;
   }
   .sidebar {
-    width: 370px;
+    width: 50%;
   }
 }
 @media (min-width: 768px) {
@@ -476,7 +469,7 @@ html {
 }
 @media (min-width: 992px) and (max-width: 1199px) {
   .sidebar-pane {
-    min-width: 350px;
+    min-width: 20%;
   }
   .sidebar-left ~ .sidebar-map .leaflet-left {
     left: 400px;
@@ -485,12 +478,21 @@ html {
     right: 400px;
   }
   .sidebar {
-    width: 400px;
+    width: 25%;
+  }
+  .sidebar-header {
+    height: 2.5rem;
+    max-height: 2.5rem;
+    font-size: 1.75rem;
+  }
+  .button-controls {
+    font-size: 1rem;
   }
 }
 @media (min-width: 1200px) {
   .sidebar-pane {
-    min-width: 420px;
+    min-width: 25%;
+    font-size: 1.25rem;
   }
   .sidebar-left ~ .sidebar-map .leaflet-left {
     left: 470px;
@@ -499,7 +501,7 @@ html {
     right: 470px;
   }
   .sidebar {
-    width: 560px;
+    width: 30%;
   }
 }
 .list-container {
@@ -515,21 +517,26 @@ html {
   font-size: 1.75rem;
   cursor: pointer;
 }
-
 .marker-list-toggle:hover {
   text-decoration: none;
 }
 
-.marker-link:hover {
-  color: rgba(255, 255, 255, 0.45);
+.marker-list-item {
+  display: grid;
+  grid-template-rows: repeat(2 1fr);
 }
 
-.item-controls {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--fnt-crl-primary);
-  text-decoration: underline;
+.marker-info {
+  margin-right: 2rem;
+  font-size: 1.25rem;
+}
+
+.rename {
+  margin-right: 1rem;
+}
+
+.checkpoint-btn {
+  font-size: 1.25rem;
 }
 
 .marker-link {
@@ -537,18 +544,29 @@ html {
   color: inherit;
   font-size: 1.45rem;
   margin-right: 5rem;
-  outline: 1px solid red;
 }
-
 .marker-link:hover {
   color: rgba(255, 255, 255, 0.45);
 }
 
 .marker-info {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: inherit;
-  font-family: "Franklin Gothic Regular";
-  outline: 1px solid red;
+  font-family: "abhaya_libreregular";
+}
+
+.item-btn {
+  background: none;
+  border: none;
+  color: var(--fnt-crl-primary);
+  cursor: pointer;
+}
+.item-btn:hover {
+  text-decoration: underline;
+}
+
+.marker-rename {
+  margin-right: 1rem;
 }
 
 .marker-list {
@@ -561,16 +579,98 @@ html {
 }
 
 @media (max-width: 992px) {
-  .marker-list-item {
+  .checkpoint-btn {
     font-size: 0.85rem;
   }
   .marker-link {
-    font-size: inherit;
+    font-size: 1rem;
   }
   .marker-info {
-    font-size: inherit;
+    font-size: 0.85rem;
   }
   .marker-list-toggle {
     font-size: 1.25rem;
+  }
+}
+.custom-popup {
+  font-family: "abhaya_libreregular";
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.checkpoint-body {
+  display: grid;
+  grid-template-rows: repeat(3 1fr);
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.checkpoint-coordinates {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.leaflet-popup-content-wrapper {
+  box-shadow: 3px 14px 18px 6px rgba(0, 0, 0, 0.46);
+  -webkit-box-shadow: 3px 14px 18px 6px rgba(0, 0, 0, 0.46);
+  -moz-box-shadow: 3px 14px 18px 6px rgba(0, 0, 0, 0.46);
+}
+
+.input-label {
+  display: block;
+}
+
+.cbtn {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0.25rem 0.75rem;
+  background: rgb(86, 106, 229);
+  border: none;
+  color: #FFFFFF;
+  border-radius: 1rem;
+}
+.cbtn:hover {
+  background: rgb(34, 44, 112);
+  text-decoration: underline;
+  box-shadow: -1px 11px 14px 1px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: -1px 11px 14px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: -1px 11px 14px 1px rgba(0, 0, 0, 0.25);
+}
+
+.leaflet-popup-content {
+  font-size: 1.15rem;
+}
+
+.name-required {
+  color: rgb(201, 45, 34);
+  font-size: 0.75rem;
+  display: none;
+}
+.name-required--active {
+  display: block;
+}
+
+.layer-required {
+  color: rgb(240, 33, 18);
+  font-size: 0.75rem;
+  display: none;
+}
+.layer-required--active {
+  display: block;
+}
+
+.input-required {
+  border: 2px solid rgb(240, 33, 18);
+}
+
+@media (min-width: 1200px) {
+  .checkpoint-body {
+    font-size: 1.15rem;
+  }
+  .checkpoint-coordinates {
+    font-size: 1.15rem;
+  }
+  .field-required {
+    font-size: 0.85rem;
   }
 }
