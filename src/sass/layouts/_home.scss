@@ -29,11 +29,19 @@ html{
 
 .modal-input{
     font-size: 1.15rem;
-    margin-bottom: 0.75rem;
 }
 
 .modal-title{
     font-size: 1.25rem;
+}
+
+.name-required-modal{
+    color: rgb(201, 45, 34);
+    display: none;
+
+    &--active{
+    display: block;
+}
 }
 
 

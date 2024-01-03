@@ -23,10 +23,6 @@ L.control
 
   .addTo(Worldmap);
 
-
-
-
-
 //initializing sidebar
 var sidebar = L.control.sidebar("sidebar").addTo(Worldmap);
 var layerControl = L.control
@@ -74,14 +70,18 @@ let openCheckpoint = document
     Cords.addTo(Worldmap);
   });
 
-
-document.querySelector(".export-menu-toggle").addEventListener("click", () => { //export menu, export functions at the bottom of the file
+document.querySelector(".export-menu-toggle").addEventListener("click", () => {
+  //export menu, export functions at the bottom of the file
   let exportMenu = document.querySelector(".export-menu");
   let icon = document.querySelector(".export-menu-icon");
   exportMenu.classList.toggle("menu--active");
   icon.classList.toggle("flip-icon");
 });
 
+let modalAlert = document.querySelector(".modal-alert");
+modalAlert.querySelector(".modal-close").addEventListener("click", () => {
+  modalAlert.close();
+});
 
 //End of the Functionality section
 
@@ -133,14 +133,14 @@ function addNewOverlay(overlayName) {
     overlaysArray.push(newLayerGroup); //add layergroup object/overlay to an array
   }
 }
-const markerListTemplate = document.querySelector("#sidebar-layer-template"); 
+const markerListTemplate = document.querySelector("#sidebar-layer-template");
 
 // add an overlay and marker to the sidebar pane
 function addToList(
   listContainer, //where the list will be placed
-  overlayName, 
-  markerName, 
-  markerCoordinates, 
+  overlayName,
+  markerName,
+  markerCoordinates,
   markerID,
   itemTemplate
 ) {
@@ -151,7 +151,9 @@ function addToList(
   // check if there already exists an overlay in the container with given name if not create it
   if (!targetLayer) {
     let newList = markerListTemplate.content.cloneNode(true);
-    newList.querySelector(".marker-list-toggle").dataset.targetLayer = overlayName;
+    newList.querySelector(".list-container").dataset.layer = overlayName;
+    newList.querySelector(".marker-list-toggle").dataset.targetLayer =
+      overlayName;
     newList.querySelector(".marker-list-toggle").textContent = overlayName;
     newList.querySelector(".marker-list").dataset.layerGroup = overlayName;
     listContainer.appendChild(newList);
@@ -166,14 +168,17 @@ function addToList(
   newlistItem.querySelector(".marker-link").dataset.markerId = markerID;
   newlistItem.querySelector(".marker-link").textContent = markerName;
   let [lat, lng] = markerCoordinates;
-  newlistItem.querySelector(".marker-info").textContent = `Lat: ${lat}, Lng: ${lng}`;
+  newlistItem.querySelector(
+    ".marker-info"
+  ).textContent = `Lat: ${lat}, Lng: ${lng}`;
 
   targetLayer.appendChild(newlistItem);
 }
 
-
 const baseMarkersContainer = document.querySelector(".base-markers-container"); //container for the markers fetched from database/JSON file
-const customMarkersContainer = document.querySelector(".custom-markers-container"); //container for the markers created by the user
+const customMarkersContainer = document.querySelector(
+  ".custom-markers-container"
+); //container for the markers created by the user
 const MarkersContainers = document.querySelectorAll(".marker-list-container"); //common class for both of the above containers
 
 //event deegation to open marker lists in the sidebar pane
@@ -191,7 +196,6 @@ MarkersContainers.forEach((container) => {
   container.addEventListener("click", handleToggleClick);
 });
 
-
 /*
 When clicked on the link with marker name in the sidebar, map gets zoomed onto the corresponding marker.
 Separate function for both of the containers because of the two separate array of the markers.
@@ -202,12 +206,13 @@ baseMarkersContainer.addEventListener("click", function GoTo(event) {
   let markerLink = event.target.closest(".marker-link");
   if (markerLink) {
     let markerID = markerLink.dataset.markerId;
-    let marker = worldMarkers.find((marker) => String(marker.markerID) === markerID);
+    let marker = worldMarkers.find(
+      (marker) => String(marker.markerID) === markerID
+    );
     if (marker && marker.mapMarker) {
-      let trueMarker = marker.mapMarker;
-      trueMarker.openPopup();
-      Worldmap.flyTo(trueMarker.getLatLng(), 5);
-    } 
+      marker.mapMarker.openPopup();
+      Worldmap.flyTo(marker.mapMarker.getLatLng(), 5);
+    }
   }
 });
 customMarkersContainer.addEventListener("click", function GoTo(event) {
@@ -215,34 +220,94 @@ customMarkersContainer.addEventListener("click", function GoTo(event) {
   let markerLink = event.target.closest(".marker-link");
   if (markerLink) {
     let markerID = markerLink.dataset.markerId;
-    let marker = customMarkers.find((marker) => String(marker.markerID) === markerID);
+    let marker = customMarkers.find(
+      (marker) => String(marker.markerID) === markerID
+    );
     if (marker && marker.mapMarker) {
-      let trueMarker = marker.mapMarker;
-      trueMarker.openPopup();
-      Worldmap.flyTo(trueMarker.getLatLng(), 5);
-    } 
+      marker.mapMarker.openPopup();
+      Worldmap.flyTo(marker.mapMarker.getLatLng(), 5);
+    }
   }
 });
 
 // Rename and delete function for the custom markers
-customMarkersContainer.addEventListener("click", function GoTo(event) {
+customMarkersContainer.addEventListener("click", function Rename(event) {
   event.preventDefault();
-  let modal = document.querySelector(".modal");
-  let closeModal = document.querySelector(".modal-close");
-  closeModal.addEventListener("click", ()=>{
+  let modal = document.querySelector(".modal-rename");
+  let required = modal.querySelector(".name-required-modal");
+  let closeModal = modal.querySelector(".modal-close");
+  closeModal.addEventListener("click", () => {
     modal.close();
+    required.classList.remove("name-required-modal--active");
+    modal.querySelector(".modal-input").value = "";
   });
-
   let acceptName = document.querySelector(".modal-accept");
+
   let rename = event.target.closest(".marker-rename");
   if (rename) {
-    let container = rename.closest(".marker-list-item");
-    let markerLink = container.querySelector(".marker-link");
+    let listItem = rename.closest(".marker-list-item");
+    let markerLink = listItem.querySelector(".marker-link");
     let markerID = markerLink.dataset.markerId;
+    let marker = customMarkers.find(
+      (marker) => String(marker.markerID) === markerID
+    );
+    modal.showModal();
+    acceptName.addEventListener("click", () => {
+      let modalInput = modal.querySelector(".modal-input").value.trim();
+      if (modalInput === "") {
+        required.classList.add("name-required-modal--active");
+        return;
+      }
+      let newName = modalInput;
+      newName = newName.charAt(0).toUpperCase() + newName.slice(1);
+      if (uniqueNames.has(newName)) {
+      }
+      marker.markerName = newName;
+      markerLink.textContent = newName;
+      let customPopupContent = `<div class="custom-popup">${newName}</div>`; //create custom popup with marker name
+      marker.mapMarker.bindPopup(customPopupContent).openPopup();
+      modal.close();
+      modal.querySelector(".modal-input").value = "";
+    });
+  }
+});
+
+customMarkersContainer.addEventListener("click", function removeMarker(event) {
+  event.preventDefault();
+  let markerDelete = event.target.closest(".marker-delete");
+  let modal = document.querySelector(".modal-delete");
+  let modalTake = modal.querySelector(".modal-take-action");
+  let modalDrop = modal.querySelector(".modal-drop-action");
+
+  if (markerDelete) {
+    let listItem = markerDelete.closest(".marker-list-item");
+    let listContainer = listItem.closest(".list-container");
+    let markerLink = listItem.querySelector(".marker-link");
+    let markerID = markerLink.dataset.markerId;
+    let list = listContainer.querySelector(".marker-list");
+    
+    let listToggle = listContainer.querySelector(".marker-list-toggle");
     let marker = customMarkers.find((marker) => String(marker.markerID) === markerID);
     modal.showModal();
 
+    modalTake.addEventListener("click", () => {
+      marker.mapMarker.remove();
+      if (list.children.length > 0){
+        list.removeChild(listItem);
+      }
+      if (list.children.length === 0 && listContainer.dataset.layer === list.dataset.layerGroup) {
+        console.log("ez");
+        customMarkersContainer.removeChild(listContainer);
+        
+      }
 
+      modal.close();
+    });
+    modalDrop.addEventListener("click", () => {
+      modal.close();
+      console.log(listContainer);
+      return;
+    });
   }
 });
 
@@ -258,30 +323,30 @@ function addMarker() {
   let overlayName = document.querySelector(".overlayName").value.trim();
   overlayName = overlayName.charAt(0).toUpperCase() + overlayName.slice(1);
   addNewOverlay(overlayName);
-  
+
   if (markerName === "") {
-  let fieldRequired = document.querySelector('.name-required');
-  let inputName = document.querySelector(".markerName");
-  fieldRequired.classList.toggle('name-required--active');
-  inputName.classList.toggle('input-required');
-  return; // Exit the function without adding a marker
-}
+    let fieldRequired = document.querySelector(".name-required");
+    let inputName = document.querySelector(".markerName");
+    fieldRequired.classList.toggle("name-required--active");
+    inputName.classList.toggle("input-required");
+    return; // Exit the function without adding a marker
+  }
 
-// Check if the overlayName is not blank or just whitespace
-if (overlayName === "") {
-  let fieldRequired = document.querySelector('.layer-required');
-  fieldRequired.classList.toggle('layer-required--active');
-  let inputOverlay = document.querySelector('.overlayName');
-  inputOverlay.classList.toggle('input-required');
-  return; // Exit the function without adding a marker and overlay
-} 
-
-
+  // Check if the overlayName is not blank or just whitespace
+  if (overlayName === "") {
+    let fieldRequired = document.querySelector(".layer-required");
+    fieldRequired.classList.toggle("layer-required--active");
+    let inputOverlay = document.querySelector(".overlayName");
+    inputOverlay.classList.toggle("input-required");
+    return; // Exit the function without adding a marker and overlay
+  }
 
   let markerCoordinates = getCords(Cords);
   // Check if the name and coordinates are unique
   if (uniqueNames.has(markerName) || uniqueCoordinates.has(markerCoordinates)) {
-    alert("Marker name or coordinates already exist.");
+    modalAlert.querySelector(".modal-alert-title").textContent =
+      "Marker name already exists";
+    modalAlert.showModal();
     return; // Exit the function without adding a duplicate marker
   }
 
@@ -326,8 +391,9 @@ var Cords = L.marker([0, 0], {
   zIndexOffset: 9998,
 });
 
-const checkpointPopupTemplate = document.querySelector("#checkpoint-popup-template");
-
+const checkpointPopupTemplate = document.querySelector(
+  "#checkpoint-popup-template"
+);
 
 Cords.bindPopup(""); //bind popup to the checkpoint (red) marker
 Cords.openPopup(""); //open the popup
@@ -336,10 +402,10 @@ Cords.on("dragend", () => {
   let coordinates = getCords(Cords);
   let checkpoint = checkpointPopupTemplate.content.cloneNode(true); //clone template from HTML
   checkpoint.querySelector(".checkpoint-coordinates").textContent = coordinates; //display coordinates of the checkpoint
-  checkpoint.querySelector(".addMarker").addEventListener("click", ()=>{
+  checkpoint.querySelector(".addMarker").addEventListener("click", () => {
     addMarker(); //create new marker object
   });
-  checkpoint.querySelector(".closeCords").addEventListener("click", ()=>{
+  checkpoint.querySelector(".closeCords").addEventListener("click", () => {
     closeCords(Cords); //close checkpoint without doing anything
   });
   Cords.getPopup().setContent(checkpoint).openOn(Worldmap);
@@ -369,10 +435,11 @@ document.querySelector(".export-json").addEventListener("click", function () {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
   } else {
-    alert("There are no markers to export.");
+    modalAlert.querySelector(".modal-alert-title").textContent =
+      "There are no markers to export";
+    modalAlert.showModal();
   }
 });
-
 
 //function for exporting custom markers to txt file, formatted to be directly used in INSERt statement in database
 document.querySelector(".export-txt").addEventListener("click", function () {
@@ -384,7 +451,7 @@ document.querySelector(".export-txt").addEventListener("click", function () {
     });
 
     // Join the formatted strings into a single string
-    const resultString = markerData.join('\n');
+    const resultString = markerData.join("\n");
 
     // Create a Blob containing the text data
     const txtBlob = new Blob([resultString], { type: "text/plain" });
@@ -406,13 +473,13 @@ document.querySelector(".export-txt").addEventListener("click", function () {
     // Remove the link element
     document.body.removeChild(a);
   } else {
-    alert("There are no markers to export.");
+    modalAlert.querySelector(".modal-alert-title").textContent =
+      "There are no markers to export";
+    modalAlert.showModal();
   }
 });
 //end of export function
 //end of the custom markers section
-
-
 
 // Markers fetched from the server/JSON file
 const jsonUrl = "../markers.json"; //link to the endpoint or JSON file
@@ -452,7 +519,7 @@ fetch(jsonUrl)
     console.error(`Fetch error: ${error.message}`);
   });
 
-  // adding markers to the map and sidebar pane
+// adding markers to the map and sidebar pane
 function addBaseMarkers() {
   const listContainer = document.querySelector(".base-markers-container"); //sidebar pane container for fetched markers
 
@@ -472,7 +539,9 @@ function addBaseMarkers() {
     // else {
     //   console.error(`Overlay not found for marker: ${marker.markerName}`); <-- for debuging purposes
     // }
-    const listItemTemplate = document.querySelector("#sidebar-marker-template--base"); //list item template for the new marker
+    const listItemTemplate = document.querySelector(
+      "#sidebar-marker-template--base"
+    ); //list item template for the new marker
     //add the marker to the sidebar pane
     addToList(
       listContainer,
@@ -480,7 +549,7 @@ function addBaseMarkers() {
       marker.markerName,
       marker.coordinates,
       marker.markerID,
-      listItemTemplate,
+      listItemTemplate
     );
   });
 }
