@@ -230,7 +230,7 @@ customMarkersContainer.addEventListener("click", function GoTo(event) {
   }
 });
 
-// Rename and delete function for the custom markers
+// Rename function for the custom markers
 customMarkersContainer.addEventListener("click", function Rename(event) {
   event.preventDefault();
   let modal = document.querySelector(".modal-rename");
@@ -239,6 +239,7 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
   closeModal.addEventListener("click", () => {
     modal.close();
     required.classList.remove("name-required-modal--active");
+    document.querySelector(".name-exists-modal").classList.remove("name-exists-modal--active");
     modal.querySelector(".modal-input").value = "";
   });
   let acceptName = document.querySelector(".modal-accept");
@@ -251,6 +252,7 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
     let marker = customMarkers.find(
       (marker) => String(marker.markerID) === markerID
     );
+    let oldName = marker.markerName;
     modal.showModal();
     acceptName.addEventListener("click", () => {
       let modalInput = modal.querySelector(".modal-input").value.trim();
@@ -261,17 +263,23 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
       let newName = modalInput;
       newName = newName.charAt(0).toUpperCase() + newName.slice(1);
       if (uniqueNames.has(newName)) {
+       document.querySelector(".name-exists-modal").classList.add("name-exists-modal--active");
+       return;
       }
+      uniqueNames.delete(oldName);
       marker.markerName = newName;
       markerLink.textContent = newName;
       let customPopupContent = `<div class="custom-popup">${newName}</div>`; //create custom popup with marker name
       marker.mapMarker.bindPopup(customPopupContent).openPopup();
+      uniqueNames.add(newName);
       modal.close();
       modal.querySelector(".modal-input").value = "";
+      document.querySelector(".name-exists-modal").classList.remove("name-exists-modal--active");
     });
   }
 });
 
+//Delete function for custom markers
 customMarkersContainer.addEventListener("click", function removeMarker(event) {
   event.preventDefault();
   let markerDelete = event.target.closest(".marker-delete");
@@ -285,19 +293,24 @@ customMarkersContainer.addEventListener("click", function removeMarker(event) {
     let markerLink = listItem.querySelector(".marker-link");
     let markerID = markerLink.dataset.markerId;
     let list = listContainer.querySelector(".marker-list");
-    
-    let listToggle = listContainer.querySelector(".marker-list-toggle");
     let marker = customMarkers.find((marker) => String(marker.markerID) === markerID);
+    let name = marker.markerName;
     modal.showModal();
 
     modalTake.addEventListener("click", () => {
-      marker.mapMarker.remove();
       if (list.children.length > 0){
+        marker.mapMarker.remove();
         list.removeChild(listItem);
+        let index = customMarkers.indexOf(marker);
+        uniqueNames.delete(name);
+        console.log(index);
+        customMarkers.splice(index, 1);
       }
       if (list.children.length === 0 && listContainer.dataset.layer === list.dataset.layerGroup) {
-        console.log("ez");
-        customMarkersContainer.removeChild(listContainer);
+        if (customMarkersContainer.contains(listContainer)) {
+          customMarkersContainer.removeChild(listContainer);
+          console.log("gone");
+        }
         
       }
 

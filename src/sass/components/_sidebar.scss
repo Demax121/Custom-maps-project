@@ -203,6 +203,27 @@
   font-size: 2.25rem; //header font size
 }
 
+.sidebar-section-title{
+  font-size: 1.5rem;
+  color: var(--fnt-crl-primary);
+}
+.section-separate{
+  margin-bottom: 0.75rem;
+}
+
+.section-paragraph{
+display: flex;
+flex-direction: row;
+}
+
+.showcase-icon{
+  font-size: 1.5rem;
+  display: block;
+  margin: auto 0.75rem;
+}
+
+
+
 .fa-caret-left {
   font-size: 2rem;
 }

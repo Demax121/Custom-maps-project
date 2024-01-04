@@ -131,11 +131,13 @@ html {
   font-size: 1.25rem;
 }
 
-.name-required-modal {
+.name-required-modal,
+.name-exists-modal {
   color: rgb(201, 45, 34);
   display: none;
 }
-.name-required-modal--active {
+.name-required-modal--active,
+.name-exists-modal--active {
   display: block;
 }
 
@@ -380,6 +382,26 @@ html {
   text-transform: uppercase;
   text-align: center;
   font-size: 2.25rem;
+}
+
+.sidebar-section-title {
+  font-size: 1.5rem;
+  color: var(--fnt-crl-primary);
+}
+
+.section-separate {
+  margin-bottom: 0.75rem;
+}
+
+.section-paragraph {
+  display: flex;
+  flex-direction: row;
+}
+
+.showcase-icon {
+  font-size: 1.5rem;
+  display: block;
+  margin: auto 0.75rem;
 }
 
 .fa-caret-left {
