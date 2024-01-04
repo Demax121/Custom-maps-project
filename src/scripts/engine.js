@@ -294,18 +294,16 @@ customMarkersContainer.addEventListener("click", function removeMarker(event) {
     modal.showModal();
 
     modalTake.addEventListener("click", () => {
-      if (list.children.length > 0){
+      if (list.contains(listItem)){
         marker.mapMarker.remove();
         list.removeChild(listItem);
         let index = customMarkers.indexOf(marker);
         uniqueNames.delete(name);
-        console.log(index);
         customMarkers.splice(index, 1);
       }
-      if (list.children.length === 0 && listContainer.dataset.layer === list.dataset.layerGroup) {
+      if (list.children.length === 0) {
         if (customMarkersContainer.contains(listContainer)) {
           customMarkersContainer.removeChild(listContainer);
-          console.log("gone");
         }
         
       }
@@ -314,16 +312,10 @@ customMarkersContainer.addEventListener("click", function removeMarker(event) {
     });
     modalDrop.addEventListener("click", () => {
       modal.close();
-      console.log(listContainer);
       return;
     });
   }
 });
-
-
-
-
-
 
 //Create new marker from input in checkpoint (red) marker
 function addMarker() {
