@@ -33,11 +33,6 @@
   padding: 0 .5rem;
 }
 
-.btn-sidebar>p {
-  display: inline-block;
-  margin-right: 1rem;
-}
-
 .menu {
   margin-top: .75rem;
   display: none;
@@ -56,14 +51,6 @@
   flex-direction: column;
   flex-wrap: nowrap;
   height: 100%;
-}
-
-.checkpoint-menu-icon {
-  transition: transform 200ms ease-in-out;
-}
-
-.flip-icon {
-  transform: rotate(180deg);
 }
 
 .sidebar-left {
@@ -107,6 +94,9 @@
   transition: all 80ms;
 }
 
+
+
+
 .sidebar-tabs>li:hover,
 .sidebar-tabs>ul>li:hover {
   color: var(--fnt-crl-primary); //change icon color on hover
@@ -135,15 +125,7 @@
   cursor: default;
 }
 
-.sidebar-tabs>li>a,
-.sidebar-tabs>ul>li>a {
-  display: block;
-  width: 100%;
-  line-height: var(--width-desktop); //making icons look more regular
-  color: inherit;
-  text-decoration: none;
-  text-align: center;
-}
+
 
 .sidebar-tabs>ul+ul {
   bottom: 0;
@@ -224,6 +206,19 @@ flex-direction: row;
   display: block;
   margin: auto 0.75rem;
 }
+
+
+.sidebar-link{
+  height: var(--width-desktop); //making icons look more regular
+  display: grid;
+  place-items: center;
+  width: 100%;
+  &:hover{
+    background-color: rgba(104, 104, 104, 0.8);
+  }
+}
+
+
 
 
 

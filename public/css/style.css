@@ -217,11 +217,6 @@ html {
   padding: 0 0.5rem;
 }
 
-.btn-sidebar > p {
-  display: inline-block;
-  margin-right: 1rem;
-}
-
 .menu {
   margin-top: 0.75rem;
   display: none;
@@ -240,14 +235,6 @@ html {
   flex-direction: column;
   flex-wrap: nowrap;
   height: 100%;
-}
-
-.checkpoint-menu-icon {
-  transition: transform 200ms ease-in-out;
-}
-
-.flip-icon {
-  transform: rotate(180deg);
 }
 
 .sidebar-left {
@@ -316,16 +303,6 @@ html {
 .sidebar-tabs > li.disabled > a,
 .sidebar-tabs > ul > li.disabled > a {
   cursor: default;
-}
-
-.sidebar-tabs > li > a,
-.sidebar-tabs > ul > li > a {
-  display: block;
-  width: 100%;
-  line-height: var(--width-desktop);
-  color: inherit;
-  text-decoration: none;
-  text-align: center;
 }
 
 .sidebar-tabs > ul + ul {
@@ -406,6 +383,16 @@ html {
   font-size: 1.5rem;
   display: block;
   margin: auto 0.75rem;
+}
+
+.sidebar-link {
+  height: var(--width-desktop);
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+.sidebar-link:hover {
+  background-color: rgba(104, 104, 104, 0.8);
 }
 
 .fa-caret-left {

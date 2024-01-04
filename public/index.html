@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="leafletJS/leaflet.css">
-    <script src="https://kit.fontawesome.com/ac1f4a65d4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
-    <title>Mapa</title>
+    <title>Map</title>
 </head>
 
 
@@ -22,16 +21,14 @@
         <!-- Nav tabs -->
         <div class="sidebar-tabs flex-container">
             <ul role="list">
-                <li><a href="#home" role="tab"><i class="fa fa-bars" aria-hidden="true"></i></a></li>
-                <li><a href="#WorldMarkers" role="tab" class="world-markers"><i
-                            class="fa-solid fa-earth-americas"></i></a></li>
-                <li><a href="#custom-markers" role="tab" class="custom-markers"><i
-                            class="fa-solid fa-location-dot"></i></a></li>
+                <li><a href="#home" role="tab" class="sidebar-link"><img src="assets/icons/menu-bars.svg" alt="menu-bars"></a></li>
+                <li><a href="#WorldMarkers" role="tab" class="world-markers sidebar-link"><img src="assets/icons/globe.svg" alt="globe"></a></li>
+                <li><a href="#custom-markers" role="tab" class="custom-markers sidebar-link"><img src="assets/icons/map-marker.svg" alt="map-marker"></a></li>
             </ul>
             <!-- This section can be removed -->
             <ul role="list">
-                <li><a href="#info" role="tab"><i class="fa-solid fa-circle-info"></i></a></li>
-                <li><a href="https://github.com/Demax121" target="_blank"><i class="fa-brands fa-github"></i></a></li>
+                <li><a href="#info" role="tab" class="sidebar-link"><img src="assets/icons/info-circle.svg" alt="info-circle"></a></li>
+                <li><a href="https://github.com/Demax121" target="_blank" class="sidebar-link"><img src="assets/icons/github-logo.svg" alt="github-logo"></a></li>
             </ul>
             <!-- This section can be removed -->
         </div>
@@ -42,42 +39,46 @@
             <div class="sidebar-pane" id="home">
                 <h1 class="sidebar-header">
                     HOW IT WORKS
-                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    <span class="sidebar-close"><img src="assets/icons/caret-left.svg" alt="caret-left"></span>
                 </h1>
                 <h3 class="sidebar-section-title">What icons on the sidebar mean</h3>
                 <hr class="section-separate">
-                <p class="section-paragraph"><i class="fa-solid fa-earth-americas showcase-icon"></i> The globe icon opens a tab
-                    where markers that are either fetched from a database or JSON file that is stored locally or somewhere else are
+                <p class="section-paragraph"><img src="assets/icons/globe.svg" alt="globe" class="showcase-icon"> The globe icon
+                    opens a tab
+                    where markers that are either fetched from a database or JSON file that is stored locally or
+                    somewhere else are
                     displayed in the form of lists that are grouped into overlays.<br>
                     When you click on the name of the overlay the list containing markers
                     will appear, clicking on the marker name zooms the map onto it.</p><br><br>
-                <p class="section-paragraph"><i class="fa-solid fa-location-dot showcase-icon"></i>
+                <p class="section-paragraph"><img src="assets/icons/map-marker.svg" alt="map-marker" class="showcase-icon">
                     The marker icon opens the custom markers tab. Those markers are created by a user
                     and are not stored anywhere even within local or session storage.
-                    When you create new markers they are separated into corresponding overlays in a similar way as in the tab with markers fetched from the database.
-                    Those markers then can be exported either in JSON or txt format that has been already formatted for the SQL INSERT statement.
-                    The delete button deletes created marker and if the overlay list doesn`t contain any markers it is removed from the tab,
+                    When you create new markers they are separated into corresponding overlays in a similar way as in
+                    the tab with markers fetched from the database.
+                    Those markers then can be exported either in JSON or txt format that has been already formatted for
+                    the SQL INSERT statement.
+                    The delete button deletes created marker and if the overlay list doesn`t contain any markers it is
+                    removed from the tab,
                     the rename button allows you to rename the marker if you have decided to do so.
-                
+
                 </p>
             </div>
             <div class="sidebar-pane" id="WorldMarkers">
                 <h1 class="sidebar-header">
                     World Locations
-                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    <span class="sidebar-close"><img src="assets/icons/caret-left.svg" alt="caret-left"></span>
                 </h1>
                 <div class="marker-list-container base-markers-container">
 
                 </div>
             </div>
             <div class="sidebar-pane" id="custom-markers">
-                <h1 class="sidebar-header">Your locations<span class="sidebar-close"><i
-                            class="fa fa-caret-left"></i></span></h1>
+                <h1 class="sidebar-header">Your locations<span class="sidebar-close"><img src="assets/icons/caret-left.svg" alt="caret-left"></span></h1>
 
                 <div class="button-controls">
                     <div class="col col-1">
                         <button class="export-menu-toggle btn-sidebar">
-                            <p>Export Menu</p><i class="fa-solid fa-arrow-down export-menu-icon flip-icon"></i>
+                            Export Menu
                         </button>
                         <div class="export-menu menu">
                             <button class="export-json btn-sidebar">Export .json</button>
@@ -87,7 +88,7 @@
 
                     <div class="col col-2">
                         <button class="checkpoint-menu-toggle btn-sidebar">
-                            <p>Checkpoint Menu</p><i class="fa-solid fa-arrow-down checkpoint-menu-icon flip-icon"></i>
+                            Checkpoint Menu
                         </button>
                         <div class="checkpoint-menu menu">
                             <button class="open__checkpoint btn-sidebar">Add checkpoint</button>
@@ -103,8 +104,7 @@
 
 
             <div class="sidebar-pane" id="info">
-                <h1 class="sidebar-header">INFORMATION<span class="sidebar-close"><i
-                            class="fa fa-caret-left"></i></span></h1>
+                <h1 class="sidebar-header">INFORMATION<span class="sidebar-close"><img src="assets/icons/caret-left.svg" alt="caret-left" class="button-icon"></span></h1>
                 <p>Thanks for coming here. This project has been created for people who would like to host their own map
                     website. This project mostly revolves around maps created from static images.</p>
                 <p>If you are looking for a way to create such a map from images here is my other project:

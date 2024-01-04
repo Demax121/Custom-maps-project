@@ -54,9 +54,7 @@ document
   .querySelector(".checkpoint-menu-toggle") //button in the custom-markers pane in sidebar
   .addEventListener("click", () => {
     let checkpointMenu = document.querySelector(".checkpoint-menu");
-    let icon = document.querySelector(".checkpoint-menu-icon");
     checkpointMenu.classList.toggle("menu--active");
-    icon.classList.toggle("flip-icon");
   });
 
 let closeCheckpoint = document
@@ -73,9 +71,7 @@ let openCheckpoint = document
 document.querySelector(".export-menu-toggle").addEventListener("click", () => {
   //export menu, export functions at the bottom of the file
   let exportMenu = document.querySelector(".export-menu");
-  let icon = document.querySelector(".export-menu-icon");
   exportMenu.classList.toggle("menu--active");
-  icon.classList.toggle("flip-icon");
 });
 
 let modalAlert = document.querySelector(".modal-alert");
