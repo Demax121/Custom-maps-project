@@ -269,7 +269,7 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
       uniqueNames.delete(oldName);
       marker.markerName = newName;
       markerLink.textContent = newName;
-      let customPopupContent = `<div class="custom-popup">${newName}</div>`; //create custom popup with marker name
+      let customPopupContent = `<div class="custom-popup">${newName}</div>`; //create custom popup with new marker name
       marker.mapMarker.bindPopup(customPopupContent).openPopup();
       uniqueNames.add(newName);
       modal.close();

@@ -23,15 +23,17 @@
         <div class="sidebar-tabs flex-container">
             <ul role="list">
                 <li><a href="#home" role="tab"><i class="fa fa-bars" aria-hidden="true"></i></a></li>
-                <li><a href="#WorldMarkers" role="tab" class="world-markers"><i class="fa-solid fa-earth-americas"></i></a></li>
-                <li><a href="#custom-markers" role="tab" class="custom-markers"><i class="fa-solid fa-location-dot"></i></a></li>
+                <li><a href="#WorldMarkers" role="tab" class="world-markers"><i
+                            class="fa-solid fa-earth-americas"></i></a></li>
+                <li><a href="#custom-markers" role="tab" class="custom-markers"><i
+                            class="fa-solid fa-location-dot"></i></a></li>
             </ul>
-<!-- This section can be removed -->
+            <!-- This section can be removed -->
             <ul role="list">
                 <li><a href="#info" role="tab"><i class="fa-solid fa-circle-info"></i></a></li>
                 <li><a href="https://github.com/Demax121" target="_blank"><i class="fa-brands fa-github"></i></a></li>
             </ul>
-<!-- This section can be removed -->
+            <!-- This section can be removed -->
         </div>
 
         <!-- Tab panes -->
@@ -44,7 +46,20 @@
                 </h1>
                 <h3 class="sidebar-section-title">What icons on the sidebar mean</h3>
                 <hr class="section-separate">
-                <p class="section-paragraph"><i class="fa-solid fa-earth-americas showcase-icon"></i> icon is a tab where markers either fetched from database or JSON file that is store locally or somewhere else are displayed</p>
+                <p class="section-paragraph"><i class="fa-solid fa-earth-americas showcase-icon"></i> The globe icon opens a tab
+                    where markers that are either fetched from a database or JSON file that is stored locally or somewhere else are
+                    displayed in the form of lists that are grouped into overlays.<br>
+                    When you click on the name of the overlay the list containing markers
+                    will appear, clicking on the marker name zooms the map onto it.</p><br><br>
+                <p class="section-paragraph"><i class="fa-solid fa-location-dot showcase-icon"></i>
+                    The marker icon opens the custom markers tab. Those markers are created by a user
+                    and are not stored anywhere even within local or session storage.
+                    When you create new markers they are separated into corresponding overlays in a similar way as in the tab with markers fetched from the database.
+                    Those markers then can be exported either in JSON or txt format that has been already formatted for the SQL INSERT statement.
+                    The delete button deletes created marker and if the overlay list doesn`t contain any markers it is removed from the tab,
+                    the rename button allows you to rename the marker if you have decided to do so.
+                
+                </p>
             </div>
             <div class="sidebar-pane" id="WorldMarkers">
                 <h1 class="sidebar-header">
@@ -90,16 +105,17 @@
             <div class="sidebar-pane" id="info">
                 <h1 class="sidebar-header">INFORMATION<span class="sidebar-close"><i
                             class="fa fa-caret-left"></i></span></h1>
-                <p>Thanks for coming here. This project has been created for people who would like to host their map
-                    website<br><br>
-                    I`m a TTRPG player and have always wanted to make maps for my players and myself more accessible
-                    when playing online, that`s why I`ve been going through a lot of things that could make it possible,
-                    and as there are a lot of options none of them have satisfied me enough.<br><br>
-                    That`s why I have created this whole Custom RPG Maps project using leafletJS and leaflet Sidebarv2
-                </p><br><br>
+                <p>Thanks for coming here. This project has been created for people who would like to host their own map
+                    website. This project mostly revolves around maps created from static images.</p>
+                <p>If you are looking for a way to create such a map from images here is my other project:
+                    <a href="https://github.com/Demax121/tileCutter-for-libvips" class="link">Libvips tile cutter</a>
+                    I have created it to make creating map tiles from images a lot simpler.
+                </p>
+                <br>
                 <p>I hope it will come in handy for you dear user. You can modify it however you want or use it as it is
                     I hope you will like what I have done here.</p> <br><br>
                 <p>Font used: Abhaya Libre by Mooniak</p>
+                <p>Libraries and plugins: LeafletJS, leaflet-sidebarv2 by Turbo87</p>
             </div>
         </div>
     </div>
@@ -110,35 +126,35 @@
 
 
 
-<!-- Modals -->
+    <!-- Modals -->
 
 
-<dialog class="modal modal-rename">
-    <div class="modal-body">
-        <p class="modal-title">Provide new name for marker</p>
-        <input type="text" maxlength="25" class="modal-input">
-        <label for="modal-input" class="name-required-modal">Provide new name</label>
-        <label for="modal-input" class="name-exists-modal">Marker name already exists</label>
-        <button class="btn-sidebar modal-accept">Change name</button>
+    <dialog class="modal modal-rename">
+        <div class="modal-body">
+            <p class="modal-title">Provide new name for marker</p>
+            <input type="text" maxlength="25" class="modal-input">
+            <label for="modal-input" class="name-required-modal">Provide new name</label>
+            <label for="modal-input" class="name-exists-modal">Marker name already exists</label>
+            <button class="btn-sidebar modal-accept">Change name</button>
+            <button class="btn-sidebar modal-close">Close</button>
+        </div>
+    </dialog>
+
+    <dialog class="modal modal-delete">
+        <div class="modal-body">
+            <p class="modal-title">Do you want to delete this marker?</p>
+            <button class="btn-sidebar modal-take-action">Yes</button>
+            <button class="btn-sidebar modal-drop-action">No</button>
+        </div>
+    </dialog>
+
+    <dialog class="modal modal-alert">
+        <p class="modal-alert-title"></p>
         <button class="btn-sidebar modal-close">Close</button>
-    </div>
-</dialog>
-
-<dialog class="modal modal-delete">
-    <div class="modal-body">
-        <p class="modal-title">Do you want to delete this marker?</p>
-        <button class="btn-sidebar modal-take-action">Yes</button>
-        <button class="btn-sidebar modal-drop-action">No</button>
-    </div>
-</dialog>
-
-<dialog class="modal modal-alert">
-    <p class="modal-alert-title"></p>
-    <button class="btn-sidebar modal-close">Close</button>
-</dialog>
+    </dialog>
 
 
-<!-- Modals -->
+    <!-- Modals -->
 
 
     <!-- Templates section -->
@@ -161,31 +177,31 @@
         <li class="marker-list-item" data-layer=""><a href="#" class="marker-link" data-marker-id=""></a>
             <div class="list-item-body"><span class="marker-info"></span>
                 <span class="item-controls">
-                <button class="item-btn marker-rename">Rename</button> 
-                <button class="item-btn marker-delete">Delete</button>
-            </span>
-        </div>
+                    <button class="item-btn marker-rename">Rename</button>
+                    <button class="item-btn marker-delete">Delete</button>
+                </span>
+            </div>
         </li>
     </template>
     <!-- markers list templates-->
 
     <template id="checkpoint-popup-template">
-    
+
         <div class="checkpoint-body">
-        <span class="checkpoint-coordinates"></span>
-        <div class="checkpoint-inputs">
-            <label for="markerName" class="input-label">Location name:</label>
-            <input type="text" class="markerName" name="markerName" maxlength="25">
-            <span class="name-required ">You must provide marker name</span>
-            <label for="overlayName" class="input-label">Layer:</label>
-            <input type="text" class="overlayName" name="overlayName" maxlength="25">
-            <span class="layer-required">You must provide layer name</span>
+            <span class="checkpoint-coordinates"></span>
+            <div class="checkpoint-inputs">
+                <label for="markerName" class="input-label">Location name:</label>
+                <input type="text" class="markerName" name="markerName" maxlength="25">
+                <span class="name-required ">You must provide marker name</span>
+                <label for="overlayName" class="input-label">Layer:</label>
+                <input type="text" class="overlayName" name="overlayName" maxlength="25">
+                <span class="layer-required">You must provide layer name</span>
+            </div>
+            <div class="checkpoint-controls">
+                <button type="button" class="cbtn addMarker">Add to list</button>
+                <button type="button" class="cbtn closeCords">Close</button>
+            </div>
         </div>
-        <div class="checkpoint-controls">
-            <button type="button" class="cbtn addMarker">Add to list</button>
-            <button type="button" class="cbtn closeCords">Close</button>
-        </div>
-    </div>
     </template>
 
 

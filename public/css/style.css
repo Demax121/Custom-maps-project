@@ -347,6 +347,10 @@ html {
   text-decoration: underline;
 }
 
+.link:hover {
+  text-decoration: none;
+}
+
 .sidebar-left .sidebar-content {
   left: var(--width-desktop);
   right: 0;
@@ -385,7 +389,7 @@ html {
 }
 
 .sidebar-section-title {
-  font-size: 1.5rem;
+  font-size: 1.65rem;
   color: var(--fnt-crl-primary);
 }
 
@@ -521,7 +525,7 @@ html {
 @media (min-width: 1200px) {
   .sidebar-pane {
     min-width: 25%;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
   }
   .sidebar-left ~ .sidebar-map .leaflet-left {
     left: 470px;
