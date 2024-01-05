@@ -147,7 +147,6 @@ function addToList(
   // check if there already exists an overlay in the container with given name if not create it
   if (!targetLayer) {
     let newList = markerListTemplate.content.cloneNode(true);
-    newList.querySelector(".list-container").dataset.layer = overlayName;
     newList.querySelector(".marker-list-toggle").dataset.targetLayer =
       overlayName;
     newList.querySelector(".marker-list-toggle").textContent = overlayName;
@@ -229,6 +228,9 @@ customMarkersContainer.addEventListener("click", function GoTo(event) {
 // Rename function for the custom markers
 customMarkersContainer.addEventListener("click", function Rename(event) {
   event.preventDefault();
+
+  let rename = event.target.closest(".marker-rename");
+
   let modal = document.querySelector(".modal-rename");
   let required = modal.querySelector(".name-required-modal");
   let closeModal = modal.querySelector(".modal-close");
@@ -238,19 +240,20 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
     document.querySelector(".name-exists-modal").classList.remove("name-exists-modal--active");
     modal.querySelector(".modal-input").value = "";
   });
-  let acceptName = document.querySelector(".modal-accept");
 
-  let rename = event.target.closest(".marker-rename");
   if (rename) {
     let listItem = rename.closest(".marker-list-item");
     let markerLink = listItem.querySelector(".marker-link");
     let markerID = markerLink.dataset.markerId;
-    let marker = customMarkers.find(
-      (marker) => String(marker.markerID) === markerID
-    );
+    let marker = customMarkers.find((marker) => String(marker.markerID) === markerID);
     let oldName = marker.markerName;
     modal.showModal();
-    acceptName.addEventListener("click", () => {
+
+    // Dynamically attach the event listener within this scope
+    let acceptName = modal.querySelector(".modal-accept");
+
+    // Function to handle name change
+    function handleNameChange() {
       let modalInput = modal.querySelector(".modal-input").value.trim();
       if (modalInput === "") {
         required.classList.add("name-required-modal--active");
@@ -259,21 +262,29 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
       let newName = modalInput;
       newName = newName.charAt(0).toUpperCase() + newName.slice(1);
       if (uniqueNames.has(newName)) {
-       document.querySelector(".name-exists-modal").classList.add("name-exists-modal--active");
-       return;
+        document.querySelector(".name-exists-modal").classList.add("name-exists-modal--active");
+        return;
       }
       uniqueNames.delete(oldName);
+      uniqueNames.add(newName);
       marker.markerName = newName;
       markerLink.textContent = newName;
-      let customPopupContent = `<div class="custom-popup">${newName}</div>`; //create custom popup with new marker name
+      let customPopupContent = `<div class="custom-popup">${newName}</div>`;
       marker.mapMarker.bindPopup(customPopupContent).openPopup();
-      uniqueNames.add(newName);
       modal.close();
       modal.querySelector(".modal-input").value = "";
       document.querySelector(".name-exists-modal").classList.remove("name-exists-modal--active");
-    });
+      
+      // Remove the event listener after it's used to avoid potential issues
+      acceptName.removeEventListener("click", handleNameChange);
+    }
+
+    // Use a regular event listener without the 'once' option
+    acceptName.addEventListener("click", handleNameChange);
   }
 });
+
+
 
 //Delete function for custom markers
 customMarkersContainer.addEventListener("click", function removeMarker(event) {
