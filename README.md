@@ -29,10 +29,10 @@ New markers have **rename** and **delete** functions this is a key difference be
 
 ## Exporting markers
 
-![export example](doc/export-menu.png)
+![export example](doc/export-menu.jpeg)
 
 Created markers can be exported in two formats JSON and txt, exporting markers in JSON format allows you to use them instantly you just have to link to the JSON file location in the javascript file, the code below is such an example, you just have to look for it within the javascript code.
-![export example](doc/code.png)
+![export example](doc/part-of-script.jpeg)
 
 The more advanced way to export markers is by exporting them in txt format, markers in txt file are already prepared for the SQL INSERT statement.
 The structure of the txt file goes like this:
