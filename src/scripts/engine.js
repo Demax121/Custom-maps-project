@@ -246,6 +246,8 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
     let markerLink = listItem.querySelector(".marker-link");
     let markerID = markerLink.dataset.markerId;
     let marker = customMarkers.find((marker) => String(marker.markerID) === markerID);
+    let modalInput = modal.querySelector(".modal-input");
+    let required = modal.querySelector(".name-required-modal");
     let oldName = marker.markerName;
     modal.showModal();
 
@@ -254,12 +256,11 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
 
     // Function to handle name change
     function handleNameChange() {
-      let modalInput = modal.querySelector(".modal-input").value.trim();
-      if (modalInput === "") {
+      let newName = modalInput.value.trim();
+      if (newName === "") {
         required.classList.add("name-required-modal--active");
         return;
       }
-      let newName = modalInput;
       newName = newName.charAt(0).toUpperCase() + newName.slice(1);
       if (uniqueNames.has(newName)) {
         document.querySelector(".name-exists-modal").classList.add("name-exists-modal--active");
@@ -272,9 +273,8 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
       let customPopupContent = `<div class="custom-popup">${newName}</div>`;
       marker.mapMarker.bindPopup(customPopupContent).openPopup();
       modal.close();
-      modal.querySelector(".modal-input").value = "";
+      modalInput.value = "";
       document.querySelector(".name-exists-modal").classList.remove("name-exists-modal--active");
-
 
       // Remove the event listener after it's used to avoid potential issues
       acceptName.removeEventListener("click", handleNameChange);
