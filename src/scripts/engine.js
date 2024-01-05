@@ -274,7 +274,8 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
       modal.close();
       modal.querySelector(".modal-input").value = "";
       document.querySelector(".name-exists-modal").classList.remove("name-exists-modal--active");
-      
+
+
       // Remove the event listener after it's used to avoid potential issues
       acceptName.removeEventListener("click", handleNameChange);
     }
