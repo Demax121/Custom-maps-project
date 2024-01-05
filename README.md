@@ -2,6 +2,7 @@
 
 The custom maps project has been created to help people host their own maps created from static images on the web but it can also be used with OpenStreetMap or any other map api.
 This is my first such project so I expect there to be a lot of mistakes and things that could be improved anyway I hope it will come in handy.
+If you want to know how to create a map tiles from image here is my other repo that takes care of it: https://github.com/Demax121/tileCutter-for-libvips
 ## Sidebar icons and tabs
 
 
