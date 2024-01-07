@@ -225,6 +225,16 @@ customMarkersContainer.addEventListener("click", function GoTo(event) {
   }
 });
 
+function rescan() {
+  uniqueNames.forEach(name => {
+    // Check if there is no matching markerName in customMarkers array
+    if (!customMarkers.some(marker => marker.markerName === name)) {
+      // Delete the name from the uniqueNames set
+      uniqueNames.delete(name);
+    }
+  });
+}
+
 // Rename function for the custom markers
 customMarkersContainer.addEventListener("click", function Rename(event) {
   event.preventDefault();
@@ -250,7 +260,7 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
     let required = modal.querySelector(".name-required-modal");
     let oldName = marker.markerName;
     modal.showModal();
-
+    //console.log(markerLink); <-- debuging purposes
     // Dynamically attach the event listener within this scope
     let acceptName = modal.querySelector(".modal-accept");
 
@@ -283,6 +293,7 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
     // Use a regular event listener without the 'once' option
     acceptName.addEventListener("click", handleNameChange);
   }
+  rescan();
 });
 
 
