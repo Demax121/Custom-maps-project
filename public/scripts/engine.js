@@ -314,11 +314,14 @@ customMarkersContainer.addEventListener("click", function removeMarker(event) {
     let list = listContainer.querySelector(".marker-list");
     let marker = customMarkers.find((marker) => String(marker.markerID) === markerID);
     let name = marker.markerName;
+    let layer = overlaysArray.find((layerGroup) => String(layerGroup.name) === listItem.dataset.layer);
+    let layerGroup = layer.group;
     modal.showModal();
 
     modalTake.addEventListener("click", () => {
       if (list.contains(listItem)){
-        marker.mapMarker.remove();
+        layerGroup.removeLayer(marker.mapMarker);
+        console.log(layer);
         list.removeChild(listItem);
         let index = customMarkers.indexOf(marker);
         uniqueNames.delete(name);
