@@ -323,9 +323,9 @@ customMarkersContainer.addEventListener("click", function removeMarker(event) {
         layerGroup.removeLayer(marker.mapMarker);
         console.log(layer);
         list.removeChild(listItem);
-        let index = customMarkers.indexOf(marker);
+        let indexMarker = customMarkers.indexOf(marker);
         uniqueNames.delete(name);
-        customMarkers.splice(index, 1);
+        customMarkers.splice(indexMarker, 1);
       }
       if (list.children.length === 0) {
         if (customMarkersContainer.contains(listContainer)) {
@@ -333,13 +333,23 @@ customMarkersContainer.addEventListener("click", function removeMarker(event) {
         }
         
       }
-
       modal.close();
     });
     modalDrop.addEventListener("click", () => {
       modal.close();
       return;
     });
+
+    function checkGroup(){
+      if(layerGroup.getLayers().length === 0){
+        layerControl.removeLayer(layer.name); 
+        let indexOverlay = overlaysArray.indexOf(layer);
+        overlaysArray.splice(indexOverlay, 1);
+
+      }
+    }
+
+    checkGroup();
   }
 });
 
