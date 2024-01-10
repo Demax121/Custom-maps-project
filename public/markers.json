@@ -7,5 +7,14 @@
       "10"
     ],
     "overlayName": "Test overlay"
+  },
+  {
+    "markerID": "2",
+    "markerName": "Markus",
+    "coordinates": [
+      "15",
+      "-15"
+    ],
+    "overlayName": "Test overlay"
   }
 ]

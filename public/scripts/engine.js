@@ -314,14 +314,22 @@ customMarkersContainer.addEventListener("click", function removeMarker(event) {
     let list = listContainer.querySelector(".marker-list");
     let marker = customMarkers.find((marker) => String(marker.markerID) === markerID);
     let name = marker.markerName;
-    let layer = overlaysArray.find((layerGroup) => String(layerGroup.name) === listItem.dataset.layer);
-    let layerGroup = layer.group;
-    modal.showModal();
+    let overlay = overlaysArray.find((layerGroup) => String(layerGroup.name) === listItem.dataset.layer);
+    let layerGroup = overlay.group;
 
-    modalTake.addEventListener("click", () => {
+    modal.showModal();
+    function checkGroup(){
+      if(layerGroup.getLayers().length === 0){
+        let indexOverlay = overlaysArray.indexOf(overlay);
+        if (indexOverlay !== -1){
+        overlaysArray.splice(indexOverlay, 1);
+       layerControl.removeLayer(layerGroup);
+        }
+      }
+    }
+    function removeItem(){
       if (list.contains(listItem)){
         layerGroup.removeLayer(marker.mapMarker);
-        console.log(layer);
         list.removeChild(listItem);
         let indexMarker = customMarkers.indexOf(marker);
         uniqueNames.delete(name);
@@ -334,22 +342,15 @@ customMarkersContainer.addEventListener("click", function removeMarker(event) {
         
       }
       modal.close();
-    });
+      checkGroup();
+    }
+
+    modalTake.addEventListener("click", removeItem);
     modalDrop.addEventListener("click", () => {
       modal.close();
       return;
     });
 
-    function checkGroup(){
-      if(layerGroup.getLayers().length === 0){
-        layerControl.removeLayer(layer.name); 
-        let indexOverlay = overlaysArray.indexOf(layer);
-        overlaysArray.splice(indexOverlay, 1);
-
-      }
-    }
-
-    checkGroup();
   }
 });
 
@@ -359,7 +360,7 @@ function addMarker() {
   markerName = markerName.charAt(0).toUpperCase() + markerName.slice(1);
   let overlayName = document.querySelector(".overlayName").value.trim();
   overlayName = overlayName.charAt(0).toUpperCase() + overlayName.slice(1);
-  addNewOverlay(overlayName);
+
 
   if (markerName === "") {
     let fieldRequired = document.querySelector(".name-required");
@@ -390,6 +391,7 @@ function addMarker() {
   newID(); //increase ID by one, it keeps the ID unique
   uniqueNames.add(markerName); //add marker name to unique names set
   uniqueCoordinates.add(markerCoordinates); //add marker coordinates to unique coordinates set
+  addNewOverlay(overlayName);
   // Create a new marker object from input
   newMarker = {
     markerID: markerID,
