@@ -486,7 +486,7 @@ document.querySelector(".export-txt").addEventListener("click", function () {
     // Create an array of formatted strings for each marker
     let markerData = customMarkers.map((marker) => {
       let { markerName, coordinates, overlayName } = marker;
-      return `('${markerName}', '(${coordinates[0]})', '(${coordinates[1]})', '${overlayName}'),`;
+      return `('${markerName}', '${coordinates[0]}', '${coordinates[1]}', '${overlayName}'),`;
     });
 
     // Join the formatted strings into a single string
