@@ -72,6 +72,8 @@
 
                 </div>
             </div>
+
+            <!-- This part is for user created markers, uses customMarkers.js -->
             <div class="sidebar-pane" id="custom-markers">
                 <h1 class="sidebar-header">Your locations<span class="sidebar-close"><img src="assets/icons/caret-left.svg" alt="caret-left"></span></h1>
 
@@ -100,7 +102,7 @@
                 <div class="marker-list-container custom-markers-container">
                 </div>
             </div>
-
+<!-- This part is for user created markers, uses customMarkers.js -->
 
 
             <div class="sidebar-pane" id="info">
@@ -128,7 +130,7 @@
 
     <!-- Modals -->
 
-
+<!-- Modals for customMarkers.js -->
     <dialog class="modal modal-rename">
         <div class="modal-body">
             <p class="modal-title">Provide new name for marker</p>
@@ -147,19 +149,17 @@
             <button class="btn-sidebar modal-drop-action">No</button>
         </div>
     </dialog>
+<!-- Modals for customMarkers.js -->
 
     <dialog class="modal modal-alert">
         <p class="modal-alert-title"></p>
         <button class="btn-sidebar modal-close">Close</button>
     </dialog>
-
-
     <!-- Modals -->
 
 
     <!-- Templates section -->
 
-    <!-- markers list templates-->
     <template id="sidebar-layer-template">
         <div class="list-container">
             <button data-target-layer="" class="marker-list-toggle">Layer Name</button>
@@ -173,6 +173,7 @@
                 class="marker-info"></span></li>
     </template>
 
+    <!-- templates for customMarkers.js -->
     <template id="sidebar-marker-template--custom">
         <li class="marker-list-item" data-layer=""><a href="#" class="marker-link" data-marker-id=""></a>
             <div class="list-item-body"><span class="marker-info"></span>
@@ -183,10 +184,8 @@
             </div>
         </li>
     </template>
-    <!-- markers list templates-->
 
     <template id="checkpoint-popup-template">
-
         <div class="checkpoint-body">
             <span class="checkpoint-coordinates"></span>
             <div class="checkpoint-inputs">
@@ -203,16 +202,17 @@
             </div>
         </div>
     </template>
-
-
+    <!-- template for customMarkers.js -->
     <!-- Templates section -->
 
     <script src="leafletJS/leaflet.js"> </script>
     <script src="leafletJS/leaflet-sidebar.js"></script>
+
     <script src="scripts/mapSetup.js"></script>
     <script src="scripts/main.js"></script>
-    <script src="scripts/initialMarkersModule.js"></script>
-    <script src="scripts/customMarkersModule.js"></script>
+    
+    <script src="scripts/initialMarkers.js"></script>
+    <script src="scripts/customMarkers.js"></script>
 </body>
 
 </html>
