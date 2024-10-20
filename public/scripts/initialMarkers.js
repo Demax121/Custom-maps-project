@@ -15,12 +15,13 @@ fetch(jsonUrl)
   })
   .then((data) => {
     // Function to create a marker object from fetched data
-    function createMarkerObject(markerID, markerName, coordinates, overlayName) {
+    function createMarkerObject(markerID, markerName, coordinates, overlayName, description) {
       return {
         markerID,
         markerName,
         coordinates,
         overlayName,
+        description,
       };
     }
 
@@ -30,7 +31,8 @@ fetch(jsonUrl)
         markerData.markerID,
         markerData.markerName,
         markerData.coordinates,
-        markerData.overlayName
+        markerData.overlayName,
+        markerData.description
       );
       initialMarkers.push(initialMarker);
       addNewOverlay(markerData.overlayName); // Create a new overlay from fetched data
@@ -70,5 +72,17 @@ function addInitialMarkers() {
       marker.markerID,
       listItemTemplate
     );
+    leafletMarker.addEventListener('click', ()=>{
+      let sidebarState = document.querySelector("#sidebar");
+      if (sidebarState.classList.contains("collapsed")){
+        
+        let desc = initialMarkers.find((element) => element.markerName === marker.markerName);
+        document.querySelector(".location-name").textContent = marker.markerName;
+        document.querySelector(".location-description-container").innerHTML = desc.description;
+        sidebar.open('LocationDescription');
+      }else{
+        sidebar.close();
+      }
+    });
   });
 }

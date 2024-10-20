@@ -395,6 +395,15 @@ html {
   background-color: rgba(104, 104, 104, 0.8);
 }
 
+.reset-view {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
 .fa-caret-left {
   font-size: 2rem;
 }

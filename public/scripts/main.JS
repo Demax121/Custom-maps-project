@@ -104,6 +104,15 @@ function goToMarker(event, markersArray) {
   Worldmap.flyTo(marker.mapMarker.getLatLng(), 5);
 }
 
+
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Loaded Successfully");
 });
+
+

@@ -4,7 +4,7 @@ const mapPath = "../maps/test/{z}/{y}/{x}.webp";
 
 // Setting up the map layer
 const fullmap = L.tileLayer(mapPath, {
-  minZoom: 0,
+  minZoom: 1,
   maxZoom: 5,
   continuousWorld: false,
   noWrap: true,
@@ -18,11 +18,15 @@ const Worldmap = L.map("map", {
 }).setView([0, 0], 2);
 
 // Adding zoom controls to the top-right corner
-L.control
-  .zoom({
-    position: "topright",
-  })
-  .addTo(Worldmap);
+L.control.zoom({position: "topright",}).addTo(Worldmap);
+//Reset map view to the default zoom and coordinates
+const viewReset = document.querySelector(".reset-view");
+viewReset.addEventListener("click", (e) =>{
+e.preventDefault();
+Worldmap.flyTo([0, 0], 2);
+});
+
+
 
 // Initializing sidebar
 const sidebar = L.control.sidebar("sidebar").addTo(Worldmap);
