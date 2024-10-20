@@ -23,7 +23,7 @@ L.control.zoom({position: "topright",}).addTo(Worldmap);
 const viewReset = document.querySelector(".reset-view");
 viewReset.addEventListener("click", (e) =>{
 e.preventDefault();
-Worldmap.flyTo([0, 0], 2);
+Worldmap.setView([0, 0], 2);
 });
 
 

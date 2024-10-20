@@ -45,6 +45,11 @@ fetch(jsonUrl)
     console.error(`Fetch error: ${error.message}`);
   });
 
+
+let locationName = document.querySelector(".location-name");
+let descContainer =  document.querySelector(".location-description-container");
+let sidebarState = document.querySelector("#sidebar");
+
 // Adding markers to the map and sidebar pane
 function addInitialMarkers() {
   initialMarkers.forEach((marker) => {
@@ -61,7 +66,6 @@ function addInitialMarkers() {
     // else {
     //   console.error(`Overlay not found for marker: ${marker.markerName}`); <-- For debugging purposes
     // }
-
     const listItemTemplate = document.querySelector("#sidebar-marker-template--initial"); // List item template for the new marker
     // Add the marker to the sidebar pane
     addToList(
@@ -72,17 +76,26 @@ function addInitialMarkers() {
       marker.markerID,
       listItemTemplate
     );
-    leafletMarker.addEventListener('click', ()=>{
-      let sidebarState = document.querySelector("#sidebar");
-      if (sidebarState.classList.contains("collapsed")){
-        
-        let desc = initialMarkers.find((element) => element.markerName === marker.markerName);
-        document.querySelector(".location-name").textContent = marker.markerName;
-        document.querySelector(".location-description-container").innerHTML = desc.description;
+    leafletMarker.addEventListener('click', () => {
+      let desc = initialMarkers.find((element) => element.markerName === marker.markerName);
+    
+      // Sprawdź, czy sidebar ma klasę "collapsed"
+      if (sidebarState.classList.contains("collapsed")) {
+        locationName.textContent = marker.markerName;
+        descContainer.innerHTML = desc.description;
         sidebar.open('LocationDescription');
-      }else{
+      
+      // Jeśli sidebar nie jest collapsed i kliknięto inny marker
+      } else if (!sidebarState.classList.contains("collapsed") && locationName.textContent != marker.markerName) {
+        locationName.textContent = marker.markerName;
+        descContainer.innerHTML = desc.description;
+        sidebar.open('LocationDescription');
+      
+      // Jeśli sidebar nie jest collapsed i kliknięto ten sam marker
+      } else if (!sidebarState.classList.contains("collapsed") && locationName.textContent === marker.markerName) {
         sidebar.close();
       }
     });
+    
   });
 }

@@ -12,8 +12,6 @@ html{
     background-color: var(--bg-crl-primary)
 }
 
-
-
 .modal{
     position: absolute;
     margin: auto;
@@ -24,29 +22,27 @@ html{
     box-shadow: -2px 11px 22px 4px rgba(0,0,0,0.79);
 -webkit-box-shadow: -2px 11px 22px 4px rgba(0,0,0,0.79);
 -moz-box-shadow: -2px 11px 22px 4px rgba(0,0,0,0.79);
-}
 
-.modal::backdrop{
+&::backdrop{
     background: rgba(0, 0, 0, 0.35);
 }
-
-
-.modal-body{
+&-body{
     display: grid;
     grid-template-rows: repeat(3 1fr);
     gap: 0.25rem
 }
 
-.modal-input{
+&-input{
     font-size: 1.15rem;
 }
-
-.modal-title{
+&-title{
     font-size: 1.25rem;
 }
+}
 
-.name-required-modal,
-.name-exists-modal{
+.name{
+&-required-modal,
+&-exists-modal{
     color: rgb(201, 45, 34);
     display: none;
 
@@ -54,7 +50,7 @@ html{
     display: block;
 }
 }
-
+}
 
 
 .leaflet-bar a:last-child {

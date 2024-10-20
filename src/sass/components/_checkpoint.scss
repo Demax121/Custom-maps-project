@@ -5,15 +5,17 @@
     
 }
 
-.checkpoint-body{
+.checkpoint{
+&-body{
     display: grid;
     grid-template-rows: repeat(3 1fr);
     gap: 0.75rem;
    font-size: 0.85rem;
 }
-.checkpoint-coordinates{
+&-coordinates{
     font-size: 1rem;
     font-weight: 600;
+}
 }
 
 .leaflet-popup-content-wrapper{
@@ -82,18 +84,18 @@
 
 @media (min-width: 1200px) {
 
-.checkpoint-body{
+.checkpoint{
+&-body{
    font-size: 1.15rem;
 }
 
-.checkpoint-coordinates{
+&-coordinates{
     font-size: 1.15rem;
+}
 }
 .field-required{
     font-size: 0.85rem;
 }
-
-
 }
 
 

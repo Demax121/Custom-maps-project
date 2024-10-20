@@ -2,7 +2,9 @@
     margin-bottom: 1rem;
 }
 
-.marker-list-toggle {
+.marker{
+
+&-list-toggle {
     background: none;
     border: none;
     display: block;
@@ -17,27 +19,27 @@
     
 }
 
-.marker-list-item {
+&-rename{
+    margin-right: 1rem;
+}
+
+&-list {
+    display: none;
+}
+&-list--open {
+    padding-top: 1rem;
+    display: block;
+}
+&-list-item {
     display: grid;
     grid-template-rows: repeat(2 1fr);
 }
-
-.marker-info {
+&-info {
     margin-right: 2rem;
     font-size: 1.25rem;
 }
 
-.rename {
-    margin-right: 1rem;
-}
-
-.checkpoint-btn {
-    font-size: 1.25rem;
-
-}
-
-
-.marker-link {
+&-link {
     text-decoration: none;
     color: inherit;
     font-size: 1.45rem;
@@ -47,16 +49,12 @@
         color: rgba(255, 255, 255, .45);
     }
 }
-
-
-
-
-.marker-info {
+&-info {
     font-size: 1.25rem;
     color: inherit;
     font-family: 'abhaya_libreregular';
 }
-
+}
 
 .item-btn {
     background: none;
@@ -69,18 +67,12 @@
     }
 }
 
-.marker-rename{
+
+.rename {
     margin-right: 1rem;
 }
-
-
-.marker-list {
-    display: none;
-}
-
-.marker-list--open {
-    padding-top: 1rem;
-    display: block;
+.checkpoint-btn {
+    font-size: 1.25rem;
 }
 
 
@@ -88,16 +80,16 @@
     .checkpoint-btn {
         font-size: 0.85rem;
     }
+    .marker{
 
-    .marker-link {
-        font-size: 1rem;
-    }
-
-    .marker-info {
-        font-size: 0.85rem;
-    }
-
-    .marker-list-toggle {
-        font-size: 1.25rem;
-    }
+        &-link{
+            font-size: 1rem;
+        }
+        &-info {
+            font-size: 0.85rem;
+        }
+      &-list-toggle {
+            font-size: 1.25rem;
+        }
+}
 }
