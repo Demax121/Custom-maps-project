@@ -7,7 +7,8 @@
       "10"
     ],
     "overlayName": "Test overlay",
-    "description":"<div class=\"location-details\">\n  <h2>Stara Twierdza</h2>\n  <p>\n    Pośród gęstych lasów, na wzgórzu wznosi się opuszczona Stara Twierdza. Niegdyś była to potężna forteca, która przez wieki broniła okolicznych ziem przed najeźdźcami. Teraz jej mury są pokryte mchem, a w ciszy słychać jedynie szum wiatru przenikającego przez puste komnaty.\n  </p>\n  <p>\n    Wewnątrz murów znajdują się pozostałości po dawnych mieszkańcach: zniszczone meble, połyskujące fragmenty zbroi i zapomniane księgi. Mimo upływu lat, wciąż czuć tu ducha dawnych czasów. Miejsce to budzi jednocześnie podziw i grozę.\n  </p>\n  <p>\n    Według legend, w twierdzy ukryty jest skarb niezmiernej wartości, lecz nikt, kto odważył się go poszukać, nigdy nie wrócił. Niektórzy mówią, że w ruinach krążą zjawy dawnych rycerzy, strzegąc sekretów tego miejsca.\n  </p>\n  <img src=\"https://via.placeholder.com/600x300\" alt=\"Obrazek przedstawiający starą twierdzę\" class=\"location-image\"/>\n</div>"
+    "description": "<div class=\"location-details\">\n  <img src=\"https://img.freepik.com/darmowe-zdjecie/piekne-ujecie-lasu-z-wysokimi-zielonymi-drzewami_181624-20615.jpg\" alt=\"Obrazek przedstawiający starą twierdzę\" class=\"description-img\"/>\n  <p class=\"description-text\">\n    Pośród gęstych lasów, na wzgórzu wznosi się opuszczona Stara Twierdza. Niegdyś była to potężna forteca, która przez wieki broniła okolicznych ziem przed najeźdźcami. Teraz jej mury są pokryte mchem, a w ciszy słychać jedynie szum wiatru przenikającego przez puste komnaty.\n  </p>\n  <p class=\"description-text\">\n    Wewnątrz murów znajdują się pozostałości po dawnych mieszkańcach: zniszczone meble, połyskujące fragmenty zbroi i zapomniane księgi. Mimo upływu lat, wciąż czuć tu ducha dawnych czasów. Miejsce to budzi jednocześnie podziw i grozę.\n  </p>\n  <p class=\"description-text\">\n    Według legend, w twierdzy ukryty jest skarb niezmiernej wartości, lecz nikt, kto odważył się go poszukać, nigdy nie wrócił. Niektórzy mówią, że w ruinach krążą zjawy dawnych rycerzy, strzegąc sekretów tego miejsca.\n  </p>\n  <a href=\"https://example.com/skarb\" target=\"blank\"class=\"description-link\">Dowiedz się więcej o legendarnym skarbie</a>\n</div>",
+    "markerIcon": "skull-icon.svg"
   },
   {
     "markerID": "2",
@@ -17,6 +18,7 @@
       "-15"
     ],
     "overlayName": "Test overlay",
-    "description":"Opis miejsca2"
+    "description":"Opis miejsca2",
+    "markerIcon": "tree-icon.svg"
   }
 ]

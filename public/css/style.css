@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --nav-crl-primary: rgba(0, 0, 0, .8);
   --fnt-crl-primary: rgb(255, 255, 255);
@@ -616,7 +617,7 @@ html {
 
 .checkpoint-body {
   display: grid;
-  grid-template-rows: repeat(3 1fr);
+  grid-template-rows: repeat(4 1fr);
   gap: 0.75rem;
   font-size: 0.85rem;
 }
@@ -633,6 +634,10 @@ html {
 
 .input-label {
   display: block;
+}
+
+.dropdown-icon {
+  max-width: 50px;
 }
 
 .cbtn {
@@ -688,4 +693,23 @@ html {
   .field-required {
     font-size: 0.85rem;
   }
+}
+.description-img {
+  width: 600px;
+  height: 300px;
+  object-fit: contain;
+  margin-bottom: 3rem;
+}
+.description-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--fnt-crl-primary);
+  margin-bottom: 1rem; /* Odstęp między paragrafami */
+  text-align: justify; /* Wyrównanie tekstu do obu krawędzi */
+}
+.description-link {
+  color: var(--fnt-crl-primary);
+}
+.description-link:hover {
+  color: rgb(128, 128, 128);
 }

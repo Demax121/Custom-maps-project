@@ -1,13 +1,23 @@
 .description{
 
     &-img{
-
+        width: 600px;
+        height: 300px;
+        object-fit: contain;
+        margin-bottom: 3rem;
     }
     &-text{
-
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--fnt-crl-primary);
+        margin-bottom: 1rem; /* Odstęp między paragrafami */
+        text-align: justify; /* Wyrównanie tekstu do obu krawędzi */
     }
     &-link{
-        
+        color: var(--fnt-crl-primary);
+        &:hover{
+            color: rgb(128, 128, 128);
+        }
     }
 
 

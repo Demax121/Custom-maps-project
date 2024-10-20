@@ -1,20 +1,23 @@
-// Functionality for overall stuff
+//Button to show menu for checkpoint marker
 const checkpointMenuToggle = document.querySelector(".checkpoint-menu-toggle");
 checkpointMenuToggle.addEventListener("click", () => {
   let checkpointMenu = document.querySelector(".checkpoint-menu");
   checkpointMenu.classList.toggle("menu--active");
 });
 
+//Remove checkpoint marker from map
 const closeCheckpoint = document.querySelector(".close__checkpoint");
 closeCheckpoint.addEventListener("click", () => {
   closeCords(Cords);
 });
 
+//Add checkpoint marker to map
 const openCheckpoint = document.querySelector(".open__checkpoint");
 openCheckpoint.addEventListener("click", () => {
   Cords.addTo(Worldmap);
 });
 
+//Button to show export menu for user created markers
 const exportMenuToggle = document.querySelector(".export-menu-toggle");
 exportMenuToggle.addEventListener("click", () => {
   const exportMenu = document.querySelector(".export-menu");
@@ -22,21 +25,24 @@ exportMenuToggle.addEventListener("click", () => {
 });
 
 const customMarkers = []; //user created marker array
-const uniqueNames = new Set();
-const uniqueCoordinates = new Set();
+const uniqueNames = new Set(); //set for all marker names
+const uniqueCoordinates = new Set(); //set for all marker coordinates
 
+//get current position coordinates of the checkpoint marker
 function getCords(get) {
   let latLng = get.getLatLng();
   let formattedLat = latLng.lat.toFixed(2);
   let formattedLng = latLng.lng.toFixed(2);
   return [formattedLat, formattedLng];
 }
+//remove checkpoint marker from map
 function closeCords(e) {
   e.remove();
   e.setLatLng([0, 0]);
 }
+//create checkpoint marker
 let Cords = L.marker([0, 0], {
-  icon: redIcon,
+  icon: redIcon, //icon for the checkpoint marker
   draggable: true,
   zIndexOffset: 9998,
 });
@@ -56,43 +62,46 @@ function rescan() {
 }
 
 
-const checkpointPopupTemplate = document.querySelector("#checkpoint-popup-template");
+const checkpointPopupTemplate = document.querySelector("#checkpoint-popup-template"); //popup template
 
-Cords.bindPopup("");
-Cords.openPopup("");
+Cords.bindPopup("");//bind popup to checkpoint marker
+Cords.openPopup("");//open checkpoint marker popup
 
+//when user stops draging the checkpoint marker
 Cords.on("dragend", () => {
-  let coordinates = getCords(Cords);
-  let checkpoint = checkpointPopupTemplate.content.cloneNode(true);
-  checkpoint.querySelector(".checkpoint-coordinates").textContent = coordinates;
+  let coordinates = getCords(Cords); //get coordinates
+  let checkpoint = checkpointPopupTemplate.content.cloneNode(true); //use the checkpoint template
+  checkpoint.querySelector(".checkpoint-coordinates").textContent = coordinates;//show the coordinates
   checkpoint.querySelector(".addMarker").addEventListener("click", () => {
-    addMarker();
+    addMarker(); //add marker to list and map
   });
   checkpoint.querySelector(".closeCords").addEventListener("click", () => {
-    closeCords(Cords);
+    closeCords(Cords); //remove the checkpoint marker from map
   });
-  Cords.getPopup().setContent(checkpoint).openOn(Worldmap);
+  Cords.getPopup().setContent(checkpoint).openOn(Worldmap); //open checkpoint popup
 });
 
-let markerID = 0;
+let markerID = 0; //ID for markers, always Uniqe
 
-
+//function to keep ID unique
 function newID() {
   markerID++;
 }
 
-const customMarkersContainer = document.querySelector(".custom-markers-container");
-customMarkersContainer.addEventListener("click", (event) => goToMarker(event, customMarkers));
+const customMarkersContainer = document.querySelector(".custom-markers-container"); //sidebar container for user created markers
+customMarkersContainer.addEventListener("click", (event) => goToMarker(event, customMarkers)); //when marker from the sidebar is clicked got to it`s location
+
+//This function lets you rename markers
 customMarkersContainer.addEventListener("click", function Rename(event) {
   event.preventDefault();
 
-  let rename = event.target.closest(".marker-rename");
-  let modal = document.querySelector(".modal-rename");
-  let required = modal.querySelector(".name-required-modal");
-  let closeModal = modal.querySelector(".modal-close");
+  let rename = event.target.closest(".marker-rename"); //take the clicked marker
+  let modal = document.querySelector(".modal-rename");//open modal for reanming markers
+  let required = modal.querySelector(".name-required-modal"); //warning modal
+  let closeModal = modal.querySelector(".modal-close"); //close modal button
 
   closeModal.addEventListener("click", () => {
-    modal.close();
+    modal.close(); //close modal
     required.classList.remove("name-required-modal--active");
     document.querySelector(".name-exists-modal").classList.remove("name-exists-modal--active");
     modal.querySelector(".modal-input").value = "";
@@ -109,9 +118,9 @@ customMarkersContainer.addEventListener("click", function Rename(event) {
   let modalInput = modal.querySelector(".modal-input");
   let oldName = markerToRename.markerName;
 
-  modal.showModal();
+  modal.showModal(); //open modal 
 
-  let acceptName = modal.querySelector(".modal-accept");
+  let acceptName = modal.querySelector(".modal-accept"); //accept new name and rename marker
 
   function handleNameChange() {
     let newName = modalInput.value.trim();
@@ -227,7 +236,8 @@ function addMarker() {
   }
 
   let markerCoordinates = getCords(Cords);
-
+  let choosenIcon = document.querySelector('#icons-menu').value;
+  const customIcon = createCustomIcon(choosenIcon);
   if (uniqueNames.has(markerName) || uniqueCoordinates.has(markerCoordinates)) {
     modalAlert.querySelector(".modal-alert-title").textContent = "Marker name already exists";
     modalAlert.showModal();
@@ -244,10 +254,11 @@ function addMarker() {
     markerName: markerName,
     coordinates: markerCoordinates,
     overlayName: overlayName,
+    markerIcon: choosenIcon,
   };
   customMarkers.push(newMarker);
 
-  let customMarker = L.marker(markerCoordinates, { icon: greenIcon });
+  let customMarker = L.marker(markerCoordinates, { icon: customIcon });
   let customPopupContent = `<div class="custom-popup">${markerName}</div>`;
   customMarker.bindPopup(customPopupContent).openPopup();
   newMarker.mapMarker = customMarker;
@@ -260,14 +271,16 @@ function addMarker() {
   addToList(customMarkersContainer, overlayName, markerName, markerCoordinates, markerID, customItem);
 }
 
+//function for exporting user created markers
 const exportJSONfile = document.querySelector(".export-json").addEventListener("click", function () {
   if (customMarkers.length > 0) {
     let markerData = customMarkers.map((marker) => {
-      let { markerName, coordinates, overlayName } = marker;
+      let { markerName, coordinates, overlayName, markerIcon } = marker;
       return {
         markerName: markerName,
         coordinates: coordinates,
         overlayName: overlayName,
+        markerIcon: markerIcon
       };
     });
 
@@ -294,8 +307,8 @@ const exportJSONfile = document.querySelector(".export-json").addEventListener("
 const exportTextFile = document.querySelector(".export-txt").addEventListener("click", function () {
   if (customMarkers.length > 0) {
     let markerData = customMarkers.map((marker) => {
-      let { markerName, coordinates, overlayName } = marker;
-      return `('${markerName}', '${coordinates[0]}', '${coordinates[1]}', '${overlayName}'),`;
+      let { markerName, coordinates, overlayName, markerIcon } = marker;
+      return `('${markerName}', '${coordinates[0]}', '${coordinates[1]}', '${overlayName}', '${markerIcon}'),`;
     });
 
     const resultString = markerData.join("\n");

@@ -33,7 +33,7 @@
                             src="assets/icons/info-circle.svg" alt="info-circle"></a></li>
                 <li><a href="https://github.com/Demax121" target="_blank" class="sidebar-link"><img
                             src="assets/icons/github-logo.svg" alt="github-logo"></a></li>
-            </ul>
+            </ul
             <!-- This section can be removed -->
         </div>
 
@@ -74,7 +74,7 @@
                     World Locations
                     <span class="sidebar-close"><img src="assets/icons/caret-left.svg" alt="caret-left"></span>
                 </h1>
-                <div class="marker-list-container initial-markers-container">
+                <div class="marker-list-container base-markers-container">
 
                 </div>
             </div>
@@ -187,7 +187,7 @@
         </div>
     </template>
 
-    <template id="sidebar-marker-template--initial">
+    <template id="sidebar-marker-template--base">
         <li class="marker-list-item" data-layer=""><a href="#" class="marker-link" data-marker-id=""></a> <span
                 class="marker-info"></span></li>
     </template>
@@ -208,12 +208,24 @@
         <div class="checkpoint-body">
             <span class="checkpoint-coordinates"></span>
             <div class="checkpoint-inputs">
+            <span>
                 <label for="markerName" class="input-label">Location name:</label>
                 <input type="text" class="markerName" name="markerName" maxlength="25">
                 <span class="name-required ">You must provide marker name</span>
+            </span>
+            <span>
                 <label for="overlayName" class="input-label">Layer:</label>
                 <input type="text" class="overlayName" name="overlayName" maxlength="25">
                 <span class="layer-required">You must provide layer name</span>
+            </span>
+            <span>
+                <label for="icons" class="input-label">Choose icon:</label>
+                <select name="icons" id="icons-menu">
+                    <option value="marker-icon-red"><img class="dropdown-icon" src="assets/markers/marker-icon-red.png" alt="red icon">Red Mark</option>
+                    <option value="skull-icon.svg"><img class="dropdown-icon" src="assets/markers/skull-icon.svg" alt="skull">Skull</option>
+                    <option value="tree-icon.svg"><img class="dropdown-icon" src="assets/markers/tree-icon.svg" alt="tree">Tree</option>
+                </select>
+            </span>
             </div>
             <div class="checkpoint-controls">
                 <button type="button" class="cbtn addMarker">Add to list</button>
@@ -230,7 +242,7 @@
     <script src="scripts/mapSetup.js"></script>
     <script src="scripts/main.js"></script>
 
-    <script src="scripts/initialMarkers.js"></script>
+    <script src="scripts/baseMarkers.js"></script>
     <script src="scripts/customMarkers.js"></script>
 </body>
 

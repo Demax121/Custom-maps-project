@@ -34,15 +34,18 @@ const layerControl = L.control
   .layers(null, null, { collapsed: true })
   .addTo(Worldmap);
 
+
+
+
 // Custom icons
 const createCustomIcon = (color) => new L.Icon({
-  iconUrl: `../assets/markers/marker-icon-2x-${color}.png`,
-  shadowUrl: "../assets/markers/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
+  iconUrl: `../assets/markers/${color}`,
+  shadowUrl: `../assets/markers/marker-shadow.png`,
+  iconSize: [35, 51],
+  iconAnchor: [12, 50],
   popupAnchor: [1, -34],
   shadowSize: [41, 41],
 });
 
-const redIcon = createCustomIcon("red");
-const greenIcon = createCustomIcon("green");
+const redIcon = createCustomIcon("marker-icon-red.png");
+
