@@ -55,7 +55,7 @@ let sidebarState = document.querySelector("#sidebar");
 // Adding markers to the map and sidebar pane
 function addbaseMarkers() {
   baseMarkers.forEach((marker) => {
-    let leafletMarker = L.marker(marker.coordinates, {icon: createCustomIcon(marker.markerIcon)}); // Put the marker in corresponding coordinates
+    let leafletMarker = L.marker(marker.coordinates, {icon: createCustomIcon(marker.markerIcon)}); // Put the marker in corresponding coordinates and add a custom icon to the map
     let customPopupContent = `<div class="custom-popup">${marker.markerName}</div>`; // Add the custom popup with marker/location name
     leafletMarker.bindPopup(customPopupContent).openPopup(); // Bind the popup to the marker
     leafletMarker
