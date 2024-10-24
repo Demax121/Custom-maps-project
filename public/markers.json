@@ -14,11 +14,13 @@
     "markerID": "2",
     "markerName": "Markus",
     "coordinates": [
-      "15",
-      "-15"
+      15,
+      -15
     ],
     "overlayName": "Test overlay",
     "description":"Opis miejsca2",
     "markerIcon": "tree-icon.svg"
   }
 ]
+
+
