@@ -1,6 +1,6 @@
 
 // Link to map tiles
-const mapPath = "../maps/test/{z}/{y}/{x}.webp";
+const mapPath = "http://127.0.0.1:8080/maps/test/{z}/{y}/{x}.webp";
 
 // Setting up the map layer
 const fullmap = L.tileLayer(mapPath, {

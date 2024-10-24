@@ -4,7 +4,7 @@ const baseMarkersContainer = document.querySelector(".base-markers-container"); 
 baseMarkersContainer.addEventListener("click", (event) => goToMarker(event, baseMarkers));
 
 // Markers fetched from the server/JSON file
-const jsonUrl = "http://127.0.0.1/maps/"; // Link to the endpoint or JSON file  ../markers.json
+const jsonUrl = "http://127.0.0.1:8080/maps/"; // Link to the endpoint or JSON file  ../markers.json
 
 fetch(jsonUrl)
   .then((response) => {
